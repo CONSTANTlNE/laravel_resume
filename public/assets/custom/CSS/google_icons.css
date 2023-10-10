@@ -1,0 +1,39 @@
+
+.material-symbols-outlined {
+cursor: pointer;
+    color: white;
+    font-variation-settings:
+            'FILL' 1,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+}
+
+.material-symbols-outlined:hover {
+
+    color:rgb(13, 110, 253);
+    font-variation-settings:
+            'FILL' 1,
+            'wght' 700,
+            'GRAD' 0,
+            'opsz' 24
+}
+
+.liked{
+    color:rgb(13, 110, 253)!important;
+    font-variation-settings:
+            'FILL' 1,
+            'wght' 700,
+            'GRAD' 0,
+            'opsz' 24
+}
+
+.hover:hover{
+color:#edcb88;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.followed{
+    color:rgb(13, 110, 253)!important;
+}
