@@ -17,27 +17,5 @@ class FollowController extends Controller
         return redirect()->back();
     }
 
-    public function show()
-    {
-        $user       = auth()->user();
-        $followings = $user->followings()->with('followable')->get();
-        $following  = [];
-        foreach ($followings as $result) {
-            $following[] = $result->followable_id;
-        }
-          $following_users=User::whereIn('id',$following)->get();
 
-
-        $followers = $user->followers()->with('followers')->get();
-        $follower=[];
-        foreach ($followers as $result) {
-            $follower[] = $result->followable_id;
-        }
-        $follower_users=User::whereIn('id',$follower)->get();
-
-
-
-        dd($followings);
-
-    }
 }

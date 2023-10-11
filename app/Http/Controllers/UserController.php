@@ -39,7 +39,18 @@ class UserController extends Controller
 //        });
 //        $Join = $followings->concat($followers);
 
-        return view('admin.pages.profile', compact('user', 'following_users', 'follower_users'));
+        return view('admin.admin_pages.profile', compact('user', 'following_users', 'follower_users'));
+    }
+
+    public function edit(){
+
+        return view('admin.admin_pages.edit_profile');
+    }
+
+    public function store(Request $request){
+
+
+        return redirect()->route('profile');
     }
 
 }

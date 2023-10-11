@@ -26,28 +26,39 @@
                                     <div class="form-group">
 
                                         <label for="t-text">Title</label>
-                                        <input id="t-text" type="text" name="title" class="form-control" required>
-
+                                        <input id="t-text" type="text" name="title" class="form-control  @error('title') is-invalid @enderror"  >
+                                        @error('title')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group mb-4 mt-4">
                                         <label for="exampleFormControlTextarea1">Content</label>
-                                        <textarea class="form-control" name="body" id="exampleFormControlTextarea1"
+                                        <textarea class="form-control  @error('body') is-invalid @enderror" name="body" id="exampleFormControlTextarea1"
                                                   rows="3"></textarea>
+                                        @error('body')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group ">
                                     <label for="select-state">Categories</label>
-                                    <select id="select-state" name="categories[]" multiple placeholder="Select Category..." autocomplete="off">
+                                    <select id="select-state" name="categories[]" class="@error('categories') is-invalid @enderror" multiple placeholder="Select Category..." autocomplete="off">
                                         @foreach($categories as $category)
                                             <option value="{{$category->id}}" >{{$category->name}}</option>
                                         @endforeach
                                     </select>
+                                        @error('categories')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group @error('article_photo') is-invalid @enderror">
 
                                         <input style="width:max-content" id="photo" type="file" name="article_photo"
-                                               class="form-control mb-4 mt-4" required>
+                                               class="form-control mb-4 mt-4" >
 
                                     </div>
+                                    @error('article_photo')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                     <div class="form-group ">
                                         <button class="btn btn-light-dark mb-4 me-4 _effect--ripple waves-effect waves-light">
                                             Create

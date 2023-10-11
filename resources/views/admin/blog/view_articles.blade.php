@@ -21,6 +21,7 @@
                             <th>Author</th>
                             <th>Article Name</th>
                             <th>Article Image</th>
+                            <th>Total Likes</th>
                             <th>Categories</th>
                             <th class="text-center dt-no-sorting">Action</th>
                         </tr>
@@ -28,13 +29,14 @@
                         <tbody>
                         @foreach($articles as $index=> $article)
                             <tr>
-
                                 <td class="checkbox-column"> {{$index+1}} </td>
                                 <td>{{$article->users->name}}</td>
                                 <td>{{$article->title }}</td>
+
                                 @foreach($article->media as $media)
                                     <td><img style="width:100px;height:100px" src="{{$media->getUrl()}}"></td>
                                 @endforeach
+                                <td>{{$article->likers()->count()}}
                                 <td>
                                     @foreach ($article->categories as $category)
                                         <p>{{ $category->name }}</p>

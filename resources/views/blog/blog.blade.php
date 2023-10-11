@@ -1,5 +1,7 @@
 @extends('blog.layout')
+{{--@php--}}
 
+{{--@endphp--}}
 @section('blog')
 
     <main class="wrapper">
@@ -41,10 +43,15 @@
                                     </a>
                                     <div class="aai-post-content">
                                         <div class="aai-post-meta d-flex flex-wrap gap-3">
-                                            <a href="#" class="d-flex align-items-center gap-2">
-                                                <i class="fa-regular fa-user"></i>
-                                                <span class="hover">{{$article->users->name}}</span>
-                                            </a>
+                                            <form class="d-flex align-items-center gap-2" action="{{route('blog',[$article->users])}} ">
+                                                <input type="hidden" name="user" value="{{$article->users->id}}">
+                                                <a href="#" class="d-flex align-items-center gap-2">
+                                                    <i class="fa-regular fa-user"></i>
+                                                    <button  style="all: unset;" class= "d-flex align-items-center gap-2 hover">{{$article->users->name}}</button>
+                                                </a>
+                                                <a style="cursor: pointer" class="d-flex align-items-center gap-2 hover"> </a>
+                                            </form>
+
 
                                             <form action="{{route('like')}} " method='post'>
                                                 @csrf
@@ -83,7 +90,7 @@
                                         </div>
 
                                         <a
-                                                href="blog-details.html"
+                                                href="{{route('show_article',['article' => $article])}}"
                                                 class="aai-post-readmore d-flex align-items-center gap-2"
                                         >
                                             <span>Read More</span>
@@ -102,12 +109,14 @@
                         <aside class="aai-blog-sidebar">
                             <!-- Search -->
                             <div class="aai-sidebar-widget mb-4">
-                                <form action="{{route('search')}}">
+                                <form action="{{route('search')}}" method="get">
+
                                     <div class="aai-sidebar-search-from">
                                         <input
                                                 type="text"
                                                 class="form-control shadow-none"
                                                 placeholder="Search Here"
+                                                name="query"
                                         />
                                         <button class="aai-sidebar-search-button">
                                             <i class="fa-solid fa-magnifying-glass"></i>

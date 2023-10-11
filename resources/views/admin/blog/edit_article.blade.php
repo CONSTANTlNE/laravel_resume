@@ -4,7 +4,9 @@
     <!--  BEGIN CONTENT AREA  -->
     <div id="content" class="main-content">
         <div class="layout-px-spacing">
-
+{{--            @php--}}
+{{--                dd($article_category);--}}
+{{--            @endphp--}}
             <div class="middle-content container-xxl p-0">
 
 
@@ -32,7 +34,7 @@
                                     <div class="form-group mb-4 mt-4">
                                         <label for="exampleFormControlTextarea1">Content</label>
                                         <textarea class="form-control" name="body" id="exampleFormControlTextarea1"
-                                                  rows="3">
+                                                  rows="3">{{$article->body}}
 
                                         </textarea>
                                     </div>
@@ -40,7 +42,7 @@
                                     <label for="select-state">Categories</label>
                                     <select id="select-state" name="categories[]" multiple placeholder="Select Category..." autocomplete="off">
                                         @foreach($categories as $category)
-                                            <option value="{{$category->id}}" >{{$category->name}}</option>
+                                            <option value="{{$category->id}}" {{in_array($category->id,$article_category) ? 'selected' : ''}}   >{{$category->name}}</option>
                                         @endforeach
                                     </select>
                                     </div>

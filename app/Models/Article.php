@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Overtrue\LaravelLike\Traits\Likeable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Laravel\Scout\Searchable;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class Article extends Model implements HasMedia
+class Article extends Model implements HasMedia,Searchable
 {
-    use interactsWithMedia,Searchable,Likeable;
+    use interactsWithMedia,Likeable;
     protected $guarded=[];
+
 
     public function categories()
     {
@@ -23,13 +25,19 @@ class Article extends Model implements HasMedia
         return $this->belongsTo(User::class,'user_id');
     }
 
-    public function toSearchableArray()
+    public function getSearchResult(): SearchResult
     {
-        return [
-            'id' =>  $this->id,
-            'article' => $this->body,
-            'header' => $this->title,
-        ];
-    }
+        $url = route('blog', $this->id);
 
+        return new \Spatie\Searchable\SearchResult(
+            $this,
+            $this->title,
+            $url,
+            [
+                'title'=>$this->title,
+                'body'=>$this->body
+            ]
+
+        );
+    }
 }

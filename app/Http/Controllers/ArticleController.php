@@ -2,64 +2,28 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Http\Requests\ArticleRequestIndex;
+use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\User;
+
+use App\Services\ArticleService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use Spatie\Searchable\Search;
 
 class ArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, ArticleService $articleService)
     {
-
-        $categories  = Category::withCount('articles')->get();
-        $recent_articles = Article::orderBy('created_at', 'desc')->take(5)->get();
-
-        //Show articles by User
-        $users=User::all();
-        if(request()->routeIs('blog') && request()->has('user')){
-
-            $id=$request->user;
-//            dd($id);
-            $articles = Article::with('media', 'categories', 'users')
-                ->whereHas('users', function ($query) use ($id) {
-                    $query->where('users.id', $id);
-                })->paginate(5);
-//            dd($request->category);
-            return  view('blog.blog',compact('articles','recent_articles','categories'));
-
-        }
-
-        // Recent Articles
-        if(request()->routeIs('blog')){
-            $articles = Article::with('media', 'categories', 'users')->paginate(4);
-
-            return  view('blog.blog',compact('articles','recent_articles','categories'));
-        }
-
-
-        // Show articles within chosen category
-
-        if(request()->routeIs('show_category')){
-
-            $id=$request->category;
-            $articles = Article::with('media', 'categories', 'users')
-                ->whereHas('categories', function ($query) use ($id) {
-                    $query->where('categories.id', $id);
-                })->paginate(5);
-//            dd($request->category);
-            return  view('blog.blog',compact('articles','recent_articles','categories'));
-
-        }
-
-
-
+       return $articleService->getArticles($request);
     }
-
 
 
     /**
@@ -67,23 +31,25 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('admin.blog.create_article');
+        $categories = Category::all();
+
+        return view('admin.blog.create_article', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
 
         // Create the article
         $articleData = [
             'title' => $request->title,
-            'body' => $request->body,
+            'body'  => $request->body,
         ];
 
 // Create and save the article, and associate it with the authenticated user
-        $user = Auth::user();
+        $user    = Auth::user();
         $article = $user->articles()->create($articleData);
 
         // Attach the selected categories to the article
@@ -93,6 +59,7 @@ class ArticleController extends Controller
         if ($request->hasFile('article_photo')) {
             $article->addMediaFromRequest('article_photo')->toMediaCollection('article_image');
         }
+
         return redirect()->back();
     }
 
@@ -101,10 +68,11 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        $categories  = Category::withCount('articles')->get();
+        $categories      = Category::withCount('articles')->get();
         $recent_articles = Article::orderBy('created_at', 'desc')->take(4)->get();
 
-       return view('blog.blog-details',compact('article','recent_articles','categories'));
+        return view('blog.blog-details',
+            compact('article', 'recent_articles', 'categories'));
 
     }
 
@@ -113,19 +81,23 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
+        $categories = Category::all();
+        $article_category=$article->categories->pluck('id')->toArray();
 
-          return view('admin.blog.edit_article',compact('article'));
+
+        return view('admin.blog.edit_article',
+            compact('article', 'categories','article_category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article)
+    public function update(ArticleRequest $request, Article $article)
     {
         // Create the article
         $articleData = [
             'title' => $request->title,
-            'body' => $request->body,
+            'body'  => $request->body,
         ];
 
         $article->update($articleData);
@@ -154,16 +126,14 @@ class ArticleController extends Controller
     public function destroy(Article $article): \Illuminate\Http\RedirectResponse
     {
 
-        $article->delete();
-        return redirect()->back();
+        if (auth()->user()->hasRole('admin')) {
+            $article->delete();
+
+            return redirect()->back();
+        } else {
+            abort(403);
+        }
     }
-
- public function search(Request $request){
-
-       $search=Article::search($request);
-
-       return view('blog.blog',compact('search'));
- }
 
 
 }

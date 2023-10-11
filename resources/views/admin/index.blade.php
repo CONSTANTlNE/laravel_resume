@@ -81,26 +81,61 @@
 
     @if(request()->routeIs(['create_article','edit_article']))
         <!--  BEGIN CUSTOM STYLE FILE  -->
-        <link href="{{asset('assets/bootstrap/src/assets/css/light/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/bootstrap/src/assets/css/dark/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/bootstrap/src/assets/css/light/scrollspyNav.css')}}" rel="stylesheet"
+              type="text/css"/>
+        <link href="{{asset('assets/bootstrap/src/assets/css/dark/scrollspyNav.css')}}" rel="stylesheet"
+              type="text/css"/>
 
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/bootstrap/src/plugins/src/tomSelect/tom-select.default.min.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/bootstrap/src/plugins/css/light/tomSelect/custom-tomSelect.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/bootstrap/src/plugins/css/dark/tomSelect/custom-tomSelect.css')}}">
+        <link rel="stylesheet" type="text/css"
+              href="{{asset('assets/bootstrap/src/plugins/src/tomSelect/tom-select.default.min.css')}}">
+        <link rel="stylesheet" type="text/css"
+              href="{{asset('assets/bootstrap/src/plugins/css/light/tomSelect/custom-tomSelect.css')}}">
+        <link rel="stylesheet" type="text/css"
+              href="{{asset('assets/bootstrap/src/plugins/css/dark/tomSelect/custom-tomSelect.css')}}">
 
         <!--  END CUSTOM STYLE FILE  -->
     @endif
 
-@if(request()->routeIs('profile'))
+    @if(request()->routeIs('profile'))
         <!--  BEGIN CUSTOM STYLE FILE  -->
-        <link href="{{asset('assets/bootstrap/src/assets/css/light/components/list-group.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/bootstrap/src/assets/css/light/users/user-profile.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/bootstrap/src/assets/css/dark/components/list-group.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/bootstrap/src/assets/css/dark/users/user-profile.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/bootstrap/src/assets/css/light/components/list-group.css')}}" rel="stylesheet"
+              type="text/css">
+        <link href="{{asset('assets/bootstrap/src/assets/css/light/users/user-profile.css')}}" rel="stylesheet"
+              type="text/css"/>
+        <link href="{{asset('assets/bootstrap/src/assets/css/dark/components/list-group.css')}}" rel="stylesheet"
+              type="text/css">
+        <link href="{{asset('assets/bootstrap/src/assets/css/dark/users/user-profile.css')}}" rel="stylesheet"
+              type="text/css"/>
         <!--  END CUSTOM STYLE FILE  -->
 
-@endif
+    @endif
 
+@if(request()->routeIs('edit_profile'))
+    <!--  Edit User Profile -->
+    <link rel="stylesheet" href="{{asset('assets/bootstrap/src/plugins/src/filepond/filepond.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/bootstrap/src/plugins/src/filepond/FilePondPluginImagePreview.min.css')}}">
+    <link href="{{asset('assets/bootstrap/src/plugins/src/notification/snackbar/snackbar.min.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{asset('assets/bootstrap/src/plugins/src/sweetalerts2/sweetalerts2.css')}}">
+    <link href="{{asset('assets/bootstrap/src/plugins/css/light/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/bootstrap/src/assets/css/light/components/tabs.css')}}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/bootstrap/src/assets/css/light/elements/alert.css')}}">
+    <link href="{{asset('assets/bootstrap/src/plugins/css/light/sweetalerts2/custom-sweetalert.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/bootstrap/src/plugins/css/light/notification/snackbar/custom-snackbar.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/bootstrap/src/assets/css/light/forms/switches.css')}}">
+    <link href="{{asset('assets/bootstrap/src/assets/css/light/components/list-group.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets/bootstrap/src/assets/css/light/users/account-setting.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/bootstrap/src/plugins/css/dark/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/bootstrap/src/assets/css/dark/components/tabs.css')}}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/bootstrap/src/assets/css/dark/elements/alert.css')}}">
+    <link href="{{asset('assets/bootstrap/src/plugins/css/dark/sweetalerts2/custom-sweetalert.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/bootstrap/src/plugins/css/dark/notification/snackbar/custom-snackbar.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/bootstrap/src/assets/css/dark/forms/switches.css')}}">
+    <link href="{{asset('assets/bootstrap/src/assets/css/dark/components/list-group.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets/bootstrap/src/assets/css/dark/users/account-setting.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/bootstrap/layouts/vertical-dark-menu/css/dark/structure-mod.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/bootstrap/layouts/vertical-dark-menu/css/light/structure-mod.css')}}" rel="stylesheet" type="text/css" />
+    <!--  END CUSTOM STYLE FILE  -->
+    @endif
 </head>
 <body class="alt-menu layout-boxed">
 
@@ -115,7 +150,7 @@
 <!--  END LOADER -->
 
 <!--  BEGIN NAVBAR  -->
-@include('admin.components.navbar')
+@include('admin.admin_components.navbar')
 <!--  END NAVBAR  -->
 
 <!--  BEGIN MAIN CONTAINER  -->
@@ -125,7 +160,7 @@
     <div class="search-overlay"></div>
 
     <!--  BEGIN SIDEBAR  -->
-    @include('admin.components.sidebar')
+    @include('admin.admin_components.sidebar')
     <!--  END SIDEBAR  -->
 
     <!--  BEGIN CONTENT AREA  -->
@@ -145,16 +180,19 @@
                 @yield('articles')
                 @endrole
 
-{{--                contributor--}}
+                {{--                contributor--}}
                 @role('contributor')
                 @yield('create_article')
                 @yield('articles')
                 @endrole
+                {{--                contributor--}}
+
+                @yield('edit_profile')
                 @yield('profile')
             </div>
         </div>
 
-        @include('admin.components.footer')
+        @include('admin.admin_components.footer')
 
     </div>
     <!--  END CONTENT AREA  -->
@@ -297,14 +335,15 @@
 @endif
 
 @if(request()->routeIs(['create_article','edit_article']))
-    <script src="https://cdn.tiny.cloud/1/ivmbdafzpjulv37eiy4ua1spa59re10h61eocow6owus9ebp/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
-    tinymce.init({
-        selector: 'textarea',
-        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-    });
-</script>
+    <script src="https://cdn.tiny.cloud/1/ivmbdafzpjulv37eiy4ua1spa59re10h61eocow6owus9ebp/tinymce/6/tinymce.min.js"
+            referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        });
+    </script>
     <!-- Tom Select -->
     <script src="{{asset('assets/bootstrap/src/assets/js/scrollspyNav.js')}}"></script>
     <script src="{{asset('assets/bootstrap/src/plugins/src/tomSelect/tom-select.base.js')}}"></script>
@@ -312,12 +351,28 @@
 
     <!-- END PAGE LEVEL SCRIPTS -->
     <script>
-        new TomSelect("#select-state",{
+        new TomSelect("#select-state", {
             maxItems: 10
         });
     </script>
 @endif
 
+
+@if(request()->routeIs('edit_profile'))
+    <!--  Edit User Profile -->
+    <script src="{{asset('assets/bootstrap/src/plugins/src/filepond/filepond.min.js')}}"></script>
+    <script src="{{asset('assets/bootstrap/src/plugins/src/filepond/FilePondPluginFileValidateType.min.js')}}"></script>
+    <script src="{{asset('assets/bootstrap/src/plugins/src/filepond/FilePondPluginImageExifOrientation.min.js')}}"></script>
+    <script src="{{asset('assets/bootstrap/src/plugins/src/filepond/FilePondPluginImagePreview.min.js')}}"></script>
+    <script src="{{asset('assets/bootstrap/src/plugins/src/filepond/FilePondPluginImageCrop.min.js')}}"></script>
+    <script src="{{asset('assets/bootstrap/src/plugins/src/filepond/FilePondPluginImageResize.min.js')}}"></script>
+    <script src="{{asset('assets/bootstrap/src/plugins/src/filepond/FilePondPluginImageTransform.min.js')}}"></script>
+    <script src="{{asset('assets/bootstrap/src/plugins/src/filepond/filepondPluginFileValidateSize.min.js')}}"></script>
+    <script src="{{asset('assets/bootstrap/src/plugins/src/notification/snackbar/snackbar.min.js')}}"></script>
+    <script src="{{asset('assets/bootstrap/src/plugins/src/sweetalerts2/sweetalerts2.min.js')}}}"></script>
+    <script src="{{asset('assets/bootstrap/src/assets/js/users/account-settings.js')}}"></script>
+    <!--  Edit User Profile -->
+@endif
 
 </body>
 </html>

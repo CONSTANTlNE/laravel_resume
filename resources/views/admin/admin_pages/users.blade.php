@@ -16,10 +16,12 @@
                     <tr>
                         <th class="checkbox-column dt-no-sorting"> Record no. </th>
                         <th>Name</th>
-                        <th>Customers</th>
+                        <th>Photo</th>
                         <th>Email</th>
                         <th class="">Role</th>
-                        <th class="text-center dt-no-sorting">Total Articles</th>
+                        <th class="text-center ">Total Articles</th>
+                        <th class="text-center ">Total Followers</th>
+
                         <th class="text-center dt-no-sorting">Action</th>
                     </tr>
                     </thead>
@@ -50,6 +52,7 @@
                             <a class="dropdown-item" href="javascript:void(0);">{{$user->articles_count}}</a>
 
                         </td>
+                        <td>{{$user->followers()->count()}}</td>
                         <td class="text-center">
                             <div class="dropdown">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink7" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

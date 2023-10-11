@@ -12,16 +12,10 @@ class AdminController extends Controller
         return view('admin.index');
     }
     public function users(){
+
         $users=User::with('roles','articles')->withCount('articles')->get();
         return view('admin.pages.users',compact('users'));
 
 }
-    public function articles()
 
-    {
-        $articles = Article::with('media', 'categories', 'users');
-
-        return view('admin.blog.view_articles',compact('articles'));
-
-    }
 }

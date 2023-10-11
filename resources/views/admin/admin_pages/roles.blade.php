@@ -22,10 +22,10 @@
                             <label for="name">Role Name:</label>
                             <input type="text" id="name" name="name"  />
                             <label>Permissions</label>
-                            @foreach($permissions as $index=>$permission)
+                            @foreach($roles as $index=>$role)
                                 <div class="form-check">
-                                <input type="checkbox" id="{{"permission_ . $index"}}" name="permission[]" value="{{$permission->id}}"  >
-                                <label for="{{"permission_ . $index"}}">{{$permission->name}}</label>
+                                <input type="checkbox" id="{{"permission_ . $index"}}" name="permission[]" value="{{$role->id}}"  >
+                                <label for="{{"permission_ . $index"}}">{{$role->name}}</label>
                                 </div>
                             @endforeach
                             <button type="submit">Add</button>
@@ -114,10 +114,10 @@
                                     <label for="name">Role Name:</label>
                                     <input type="text" id="name" name="name"  />
                                     <label>Permissions</label>
-                                    @foreach($permissions as $index=>$permission)
+                                    @foreach($role as $index=>$permission)
                                         <div class="form-check">
-                                            <input type="checkbox" id="{{"permission_ . $index"}}" name="permission[]" value="{{$permission->id}}"  >
-                                            <label for="{{"permission_ . $index"}}">{{$permission->name}}</label>
+                                            <input type="checkbox" id="{{"permission_ . $index"}}" name="permission[]" value="{{$role->id}}"  >
+                                            <label for="{{"permission_ . $index"}}">{{$role->name}}</label>
                                         </div>
                                     @endforeach
 

@@ -10,7 +10,7 @@
                 <div style="padding:20px" class="widget-content widget-content-area">
                     <div class="d-flex justify-content-between">
                         <h3 class="">Profile</h3>
-                        <a href="./user-account-settings.html" class="mt-2 edit-profile"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a>
+                        <a href="{{route('edit_profile')}}" class="mt-2 edit-profile"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a>
                     </div>
                     <div class="text-center user-info">
                         <img src="../src/assets/img/profile-3.jpeg" alt="avatar">
@@ -67,6 +67,7 @@
     <!-- Followings-->
 
     <div class="row layout-spacing">
+        <h2>Followings</h2>
         <div class="col-lg-12">
             <div class="statbox widget box box-shadow">
                 <div class="widget-content widget-content-area">
@@ -118,4 +119,54 @@
         </div>
     </div>
 
+    <!-- Followers-->
+    <div class="row layout-spacing">
+        <h2>Followers</h2>
+        <div class="col-lg-12">
+            <div class="statbox widget box box-shadow">
+                <div class="widget-content widget-content-area">
+                    <table id="style-2" class="table style-2 dt-table-hover">
+                        <thead>
+                        <tr>
+                            <th class="checkbox-column dt-no-sorting"> Record Id </th>
+                            <th>First Name</th>
+                            <th>Email</th>
+                            <th class="text-center">Image</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center dt-no-sorting">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($follower_users as $index=>$result)
+                            <tr>
+                                <td class="checkbox-column"> {{$index+1}} </td>
+                                <td>
+                                    <form class="d-flex align-items-center gap-2" action="{{route('blog',[$user])}} ">
+                                        <input type="hidden" name="user" value="{{$result->id}}">
+                                        <a style="cursor: pointer" class="d-flex align-items-center gap-2 hover"> <button  style="all: unset;" class= "d-flex align-items-center gap-2 hover">{{$result->name}}</button></a>
+                                    </form>
+                                </td>
+                                <td>{{$result->email}}</td>
+
+                                <td class="text-center">
+                                    <span><img src="../src/assets/img/profile-9.jpeg" class="rounded-circle profile-img" alt="avatar"></span>
+                                </td>
+                                <td class="text-center"><span class="shadow-none badge badge-primary">Following</span></td>
+                                <td class="text-center">
+                                    <form class="d-flex align-items-center gap-2" action="{{route('follow')}} " method='post'>
+                                        @csrf
+                                        @method('POST')
+                                        <input type="hidden" name="id" value="{{$result->id}}">
+                                        <a style="cursor: pointer" class="d-flex align-items-center gap-2 hover"> <button  style="all: unset;" class= "d-flex align-items-center gap-2 hover"> @if (auth()->user() && auth()->user()->isFollowing($result))Unfollow @else Follow  @endif </button></a>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
