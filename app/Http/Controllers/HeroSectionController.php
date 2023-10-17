@@ -9,9 +9,9 @@ class HeroSectionController extends Controller
 {
     public function index()
     {
-        $data = HeroSection::all();
+        $hero= HeroSection::find(1);
 
-        return view('admin.resume.hero_section', compact('data'));
+        return view('admin.resume.hero_section', compact('hero'));
     }
 
     public function store(Request $request)

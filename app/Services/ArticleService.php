@@ -26,7 +26,6 @@ class ArticleService
         } else {
             return $this->getAllArticles($categories, $recent_articles);
         }
-
     }
 
     private function getArticlesByUser($request, $categories, $recent_articles)

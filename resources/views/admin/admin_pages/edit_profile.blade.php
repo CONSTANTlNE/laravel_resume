@@ -42,7 +42,7 @@
                                 <div class="tab-pane fade show active" id="animated-underline-home" role="tabpanel" aria-labelledby="animated-underline-home-tab">
                                     <div class="row">
                                         <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
-                                            <form class="section general-info" method="post" action="{{route('update_profile')}}">
+                                            <form class="section general-info" method="post" action="{{route('update_profile',['user' => auth()->user()])}}" type="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="info">
@@ -70,14 +70,14 @@
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <label for="fullName">Name</label>
-                                                                                    <input type="text" class="form-control mb-3" id="fullName" placeholder="Full Name" value="Jimmy Turner">
+                                                                                    <input type="text" class="form-control mb-3" id="fullName" name="name" value="{{auth()->user()->name}}">
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <label for="profession">Profession</label>
-                                                                                    <input type="text" class="form-control mb-3" id="profession" placeholder="Designer" value="Web Developer">
+                                                                                    <input type="text" class="form-control mb-3" id="profession" name="job_title"  value="{{auth()->user()->job_title}}">
                                                                                 </div>
                                                                             </div>
 
@@ -86,25 +86,20 @@
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <label for="location">Age</label>
-                                                                                    <input type="text" class="form-control mb-3" id="location" placeholder="Location">
+                                                                                    <input type="text" class="form-control mb-3" id="location" name="birth_date" value="{{auth()->user()->birth_date}}">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <label for="phone">Phone</label>
-                                                                                    <input type="text" class="form-control mb-3" id="phone" placeholder="Write your phone number here" value="+1 (530) 555-12121">
+                                                                                    <input type="text" class="form-control mb-3" id="phone" name="mobile"  value="{{auth()->user()->mobile}}">
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-6">
-                                                                                <div class="form-group">
-                                                                                    <label for="email">Email</label>
-                                                                                    <input type="text" class="form-control mb-3" id="email" placeholder="Write your email here" value="Jimmy@gmail.com">
-                                                                                </div>
-                                                                            </div>
+
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <label for="website1">Github</label>
-                                                                                    <input type="text" class="form-control mb-3" id="website1" placeholder="Enter URL">
+                                                                                    <input type="text" class="form-control mb-3" name="github" id="website1" value="{{auth()->user()->github}}">
                                                                                 </div>
                                                                             </div>
 
@@ -113,6 +108,7 @@
                                                                                 <div class="form-group text-end">
                                                                                     <button class="btn btn-secondary">Save</button>
                                                                                 </div>
+
                                                                             </div>
 
                                                                         </div>
@@ -131,7 +127,7 @@
                                 <div class="tab-pane fade " id="animated-underline-home2" role="tabpanel" aria-labelledby="animated-underline-home-tab">
                                     <div class="row">
                                         <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
-                                            <form class="section general-info" method="post" action="{{route('update_profile')}}">
+                                            <form class="section general-info" method="post" action="{{route('update_password', ['user' => auth()->user()])}}">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="info">
@@ -145,14 +141,14 @@
                                                                         <div class="row">
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
-                                                                                    <label for="fullName">Password</label>
-                                                                                    <input type="password" class="form-control mb-3" id="fullName" placeholder="Full Name" value="Jimmy Turner">
+                                                                                    <label for="password">Password</label>
+                                                                                    <input type="password" class="form-control mb-3" id="password" name="password" >
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <label for="email">Email</label>
-                                                                                    <input type="text" class="form-control mb-3" id="email" placeholder="Write your email here" value="Jimmy@gmail.com">
+                                                                                    <input type="text" class="form-control mb-3" id="email" name="email" placeholder="Write your email here" value="{{auth()->user()->email}}">
                                                                                 </div>
                                                                             </div>
 

@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HeroSectionController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProfilePageController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SkillController;
@@ -26,17 +26,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    if (auth()->user()) {
-        $user = auth()->user();
-        if ($user->hasRole(['admin', 'contributor'])) {
-            return redirect()->route('admin');
-        }
-    }
-    return view('index');
-})->name('home');
+// No Permissions
+Route::controller(ArticleController::class)->group(function () {
+    Route::get('/blog', 'index')->name('blog');
+    Route::get('/category/{category}', 'index')->name('show_category');
+    Route::get('/article/show/{article:slug}', 'show')->name('show_article');
+    Route::get('/search', 'index')->name('search');
+});
 
 
+Route::get('/', [ProfilePageController::class, 'index'])->name('home');
+
+
+// Views for Only Admin and Contributor
 Route::middleware(['auth', 'role:admin|contributor'])->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
     Route::get('/users', [AdminController::class, 'users'])->name('users');
@@ -66,6 +68,7 @@ Route::middleware(['auth', 'role:admin|contributor'])->prefix('admin')->group(fu
     Route::post('/skills/delete_skillname/{skill}', [SkillNameController::class, 'destroy'])->name('delete_skillname');
     Route::post('/skills/add_skill', [SkillNameController::class, 'store'])->name('add_skillname');
 
+
     // Resume Projects
     Route::prefix('projects')
         ->controller(ProjectController::class)
@@ -88,8 +91,8 @@ Route::middleware(['auth', 'role:admin|contributor'])->prefix('admin')->group(fu
             Route::post('/delete/{article}', 'destroy')->name('delete_article');
         });
 
-
 });
+
 
 // User Profile
 Route::middleware(['auth'])
@@ -98,24 +101,16 @@ Route::middleware(['auth'])
     ->group(function () {
         Route::get('show', 'index')->name('profile');
         Route::get('edit', 'edit')->name('edit_profile');
-        Route::put('update', 'update')->name('update_profile');
+        Route::put('update/{user}', 'update')->name('update_profile');
+        Route::put('update/{user}/password', 'password')->name('update_password');
     });
 
 
-// Likes
+// Likes & Follow (user must be authenticated to give like or follow)
 Route::middleware(['auth'])->group(function () {
     Route::post('/article/like', [LikeController::class, 'like'])->name('like');
     Route::post('/user/follow', [FollowController::class, 'follow'])->name('follow');
 
-});
-
-
-// No Permissions
-Route::controller(ArticleController::class)->group(function () {
-    Route::get('/blog', 'index')->name('blog');
-    Route::get('/category/{category}', 'index')->name('show_category');
-    Route::get('/article/show/{article}', 'show')->name('show_article');
-    Route::get('/search', 'index')->name('search');
 });
 
 

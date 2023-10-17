@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Skill;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class SkillController extends Controller
 {
@@ -13,9 +14,12 @@ class SkillController extends Controller
      */
     public function index()
     {
-        $data = Skill::all();
+        $skills = Skill::all();
+        $role     = Role::where('name', 'admin')->first();
+        $admin    = $role->users()->first();
+        $skillimg = $admin->getMedia('skills');
 
-        return view('admin.resume.skills_section', compact('data'));
+        return view('admin.resume.skills_section', compact('skills','skillimg'));
     }
 
     /**

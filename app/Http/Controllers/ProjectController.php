@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\SkillName;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -12,7 +13,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('admin.resume.projects');
+        $skillname=SkillName::all();
+        $projects=Project::all();
+
+        return view('admin.resume.projects',compact('skillname','projects'));
     }
 
     /**

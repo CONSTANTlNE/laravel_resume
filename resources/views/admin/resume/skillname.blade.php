@@ -43,7 +43,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($skillname as $index=> $skill)
+                    @foreach($skillnames as $index=> $skill)
                     <tr>
                         <td class="checkbox-column"> {{$index+1}} </td>
                         <td class="svg">{!! $skill->skill_name!!}</td>

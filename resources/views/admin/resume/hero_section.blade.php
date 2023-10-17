@@ -10,7 +10,7 @@
         @csrf
         <div class="row mb-3">
         <label for="greeting">Update Greeting</label>
-        <input class="form-control w-25" type="text" name="greeting" id="greeting" value="{{ $hero->greeting }}" >
+        <input class="form-control w-25" type="text" name="greeting" id="greeting" value="{{ $hero->greeting}}" >
         </div>
         <div class="row mb-3">
             <label for="text">Update Text</label>

@@ -12,7 +12,9 @@ class SkillNameController extends Controller
      */
     public function index()
     {
-        return view('admin.resume.skillname');
+        $skillnames=SkillName::all();
+
+        return view('admin.resume.skillname',compact('skillnames'));
     }
 
     /**

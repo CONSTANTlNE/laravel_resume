@@ -1,7 +1,5 @@
 @extends('blog.layout')
-{{--@php--}}
 
-{{--@endphp--}}
 @section('blog')
 
     <main class="wrapper">
@@ -22,6 +20,9 @@
                 <div class="row">
                     <div class="col-lg-7 col-xl-8">
                         @foreach($articles as $index=>$article)
+{{--                            @php--}}
+{{--                            dd($article);--}}
+{{--                            @endphp--}}
                             <article
                                     class="aai-post-wrapper"
                                     data-aos="fade-up"
@@ -41,6 +42,7 @@
                                             />
                                         @endforeach
                                     </a>
+
                                     <div class="aai-post-content">
                                         <div class="aai-post-meta d-flex flex-wrap gap-3">
                                             <form class="d-flex align-items-center gap-2" action="{{route('blog',[$article->users])}} ">

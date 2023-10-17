@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Requests\ArticleRequestIndex;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
@@ -22,7 +21,7 @@ class ArticleController extends Controller
      */
     public function index(Request $request, ArticleService $articleService)
     {
-       return $articleService->getArticles($request);
+        return $articleService->getArticles($request);
     }
 
 
@@ -48,13 +47,11 @@ class ArticleController extends Controller
             'body'  => $request->body,
         ];
 
-// Create and save the article, and associate it with the authenticated user
+        // Create and save the article, and associate it with the authenticated user
         $user    = Auth::user();
         $article = $user->articles()->create($articleData);
-
         // Attach the selected categories to the article
         $article->categories()->attach($request->input('categories'));
-
         // Handle the article photo upload
         if ($request->hasFile('article_photo')) {
             $article->addMediaFromRequest('article_photo')->toMediaCollection('article_image');
@@ -73,7 +70,6 @@ class ArticleController extends Controller
 
         return view('blog.blog-details',
             compact('article', 'recent_articles', 'categories'));
-
     }
 
     /**
@@ -81,12 +77,12 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        $categories = Category::all();
-        $article_category=$article->categories->pluck('id')->toArray();
+        $categories       = Category::all();
+        $article_category = $article->categories->pluck('id')->toArray();
 
 
         return view('admin.blog.edit_article',
-            compact('article', 'categories','article_category'));
+            compact('article', 'categories', 'article_category'));
     }
 
     /**

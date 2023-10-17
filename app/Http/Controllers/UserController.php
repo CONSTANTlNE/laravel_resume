@@ -44,13 +44,27 @@ class UserController extends Controller
 
     public function edit(){
 
+
         return view('admin.admin_pages.edit_profile');
     }
 
-    public function store(Request $request){
-
+    public function update( Request $request, User $user){
+//      dd($request, $user);
+        $user->update($request->all());
 
         return redirect()->route('profile');
     }
 
+    public function password(Request $request, User $user){
+
+        $user->update($request->all());
+
+        return redirect()->route('profile');
+    }
+
+    public function destroy(User $user){
+
+
+        return redirect()->route('profile');
+    }
 }
