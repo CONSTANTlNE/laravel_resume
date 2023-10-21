@@ -24,6 +24,11 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeeder::class);
         $this->call(HeroSectionSeeder::class);
         $this->call(SkillNameSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(ArticleSeeder::class);
+        $this->call(ProjectSeeder::class);
+        $this->call(PermissionSeeder::class);
+
 
 
     }

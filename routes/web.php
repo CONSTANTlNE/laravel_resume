@@ -5,6 +5,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HeroSectionController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfilePageController;
 use App\Http\Controllers\ProjectController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SkillNameController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\Localization;
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,22 +28,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// No Permissions
-Route::controller(ArticleController::class)->group(function () {
-    Route::get('/blog', 'index')->name('blog');
-    Route::get('/category/{category}', 'index')->name('show_category');
-    Route::get('/article/show/{article:slug}', 'show')->name('show_article');
-    Route::get('/search', 'index')->name('search');
+Route::get('/test', function () {
+    $slug = Str::slug('ქართული','_'); // Generate a slug from the string
+
+    return view('test')->with('slug', $slug); // Pass the slug variable to the 'test' view
 });
 
+// Choose Language
+Route::post( '/lang', [LocaleController::class, 'setLocale'])->name('set-locale');
 
-Route::get('/', [ProfilePageController::class, 'index'])->name('home');
+// No Permissions with language middleware
+Route::middleware([Localization::class])
+    ->prefix('{locale?}')
+    ->group(function () {
+        Route::get( '/', [ProfilePageController::class, 'index'])->name('home');
+        Route::controller(ArticleController::class)->group(function () {
+            Route::get('/blog', 'index')->name('blog');
+            Route::get('/category/{category}', 'categories')->name('show_category');
+            Route::get('/article/show/{article?}', 'show')->name('show_article');
+            Route::get('/search', 'index')->name('search');
+            Route::get('/user/{user}', 'users')->name('article_user');
+        });
+    });
+
 
 
 // Views for Only Admin and Contributor
-Route::middleware(['auth', 'role:admin|contributor'])->prefix('admin')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('admin');
+Route::middleware(['auth', 'role:admin|contributor', 'localization'])->prefix('admin')
+    ->prefix('{locale?}')
+    ->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/articles', [AdminController::class, 'articles'])->name('article_list');
 
     //Blog Roles
     Route::get('/roles', [RoleController::class, 'index'])->name('roles');
@@ -68,10 +86,8 @@ Route::middleware(['auth', 'role:admin|contributor'])->prefix('admin')->group(fu
     Route::post('/skills/delete_skillname/{skill}', [SkillNameController::class, 'destroy'])->name('delete_skillname');
     Route::post('/skills/add_skill', [SkillNameController::class, 'store'])->name('add_skillname');
 
-
     // Resume Projects
-    Route::prefix('projects')
-        ->controller(ProjectController::class)
+    Route::controller(ProjectController::class)
         ->group(function () {
             Route::get('/projects', 'index')->name('projects');
             Route::post('/projects/add', 'store')->name('add_project');
@@ -80,16 +96,18 @@ Route::middleware(['auth', 'role:admin|contributor'])->prefix('admin')->group(fu
         });
 
     //Articles
-    Route::prefix('articles')
-        ->controller(ArticleController::class)
-        ->group(function () {
-            Route::get('list', 'index')->name('article_list');
-            Route::get('/edit/{article}', 'edit')->name('edit_article');
-            Route::get('/create', 'create')->name('create_article');
-            Route::post('/store', 'store')->name('store_article');
-            Route::put('/update/{article}', 'update')->name('update_article');
-            Route::post('/delete/{article}', 'destroy')->name('delete_article');
+    Route::controller(ArticleController::class)->group(function () {
+            Route::get('/restore/{article}','restoreArticle')->name('restore_article');
+            Route::post('/permanent_delete/{article}','deleteArticle')->name('permanent_delete');
+            Route::get('/edit/{article}','edit' )->name('edit_article');
+            Route::get('/create','create')->name('create_article');
+            Route::post('/store','store')->name('store_article');
+            Route::put('/update/{article}' ,'update')->name('update_article');
+            Route::post('/delete/{article}','destroy' )->name('delete_article');
+            Route::get('/deleted','deleted' )->name('deleted_articles');
         });
+
+
 
 });
 
@@ -106,12 +124,12 @@ Route::middleware(['auth'])
     });
 
 
+
+
+
 // Likes & Follow (user must be authenticated to give like or follow)
 Route::middleware(['auth'])->group(function () {
     Route::post('/article/like', [LikeController::class, 'like'])->name('like');
     Route::post('/user/follow', [FollowController::class, 'follow'])->name('follow');
-
 });
-
-
 

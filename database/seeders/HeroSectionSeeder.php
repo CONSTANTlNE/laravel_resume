@@ -20,10 +20,9 @@ class HeroSectionSeeder extends Seeder
             'header_text' => 'Constantine',
             'email' => 'gmta.constantine@gmail.com',
             'created_at' => now(),
-            // Add more skills as needed
+
         ];
 
-        // Insert the specific data into the skills table
         HeroSection::insert($hero);
     }
 }

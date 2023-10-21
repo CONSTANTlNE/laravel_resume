@@ -1,5 +1,7 @@
 @extends('blog.layout')
-
+{{--@php--}}
+{{--dd($article)--}}
+{{-- @endphp--}}
 @section('show_article')
 
     <!-- Menu Start -->
@@ -26,7 +28,7 @@
                 >
                   <li>
                     <a
-                      href="{{route('blog')}}"
+                      href="{{route('blog',['locale'=>$locale])}}"
                       class="aai-breadcrumb-link text-decoration-underline"
                       >Home</a
                     >

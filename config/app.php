@@ -172,6 +172,7 @@ return [
 //        App\Providers\TelescopeServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
 
 
 

@@ -51,16 +51,16 @@
                 <ul class="collapse submenu list-unstyled" id="dashboard" data-bs-parent="#accordionExample">
 
                     <li>
-                        <a href="{{route('hero')}}"> Hero Section </a>
+                        <a href="{{route('hero',['locale' => $locale])}}"> Hero Section </a>
                     </li>
                     <li>
-                        <a href="{{route('my_skills')}}">My Skills</a>
+                        <a href="{{route('my_skills',['locale' => $locale])}}">My Skills</a>
                     </li>
                     <li>
-                        <a href="{{route('skills')}}"> Skills </a>
+                        <a href="{{route('skills',['locale' => $locale])}}"> Skills </a>
                     </li>
                     <li>
-                        <a href="{{route('projects')}}"> Projects </a>
+                        <a href="{{route('projects',['locale' => $locale])}}"> Projects </a>
                     </li>
                 </ul>
             </li>
@@ -88,16 +88,16 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="users" data-bs-parent="#accordionExample">
                     <li class="{{ request()->routeIs('users') ? 'active' : '' }}">
-                        <a href="{{route('profile')}}">Profile</a>
+                        <a href="{{route('profile',['locale' => $locale])}}">Profile</a>
                     </li>
                     <li class="{{ request()->routeIs('users') ? 'active' : '' }}">
-                        <a href="{{route('users')}}">User Settings</a>
+                        <a href="{{route('users',['locale' => $locale])}}">User Settings</a>
                     </li>
                     <li>
-                        <a href="{{route('roles')}}">Roles</a>
+                        <a href="{{route('roles',['locale' => $locale])}}">Roles</a>
                     </li>
                     <li>
-                        <a href="{{route('permissions')}}">Permissions</a>
+                        <a href="{{route('permissions',['locale' => $locale])}}">Permissions</a>
                     </li>
                 </ul>
             </li>
@@ -121,13 +121,16 @@
                     </li>
                     @endrole
                     <li>
-                        <a href="{{route('blog')}}" target="_blank"> Blog </a>
+                        <a href="{{route('blog',['locale' => $locale])}}" target="_blank"> Blog </a>
                     </li>
                     <li>
-                        <a href="{{route('article_list')}}"> Articles </a>
+                        <a href="{{route('deleted_articles',['locale' => $locale])}}"> Deleted Articles </a>
+                    </li>
+                    <li>
+                        <a href="{{route('article_list',['locale' => $locale])}}"> Articles </a>
                     </li>
                     <li class="active">
-                        <a href="{{route('create_article')}}"> Create Article </a>
+                        <a href="{{route('create_article',['locale' => $locale])}}"> Create Article </a>
                     </li>
 
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->text('experience');
+            $table->text('skill_icon');
         });
     }
 

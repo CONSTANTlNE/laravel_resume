@@ -1,3 +1,7 @@
+{{--@php--}}
+{{--dd($locale);--}}
+{{-- @endphp--}}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +22,7 @@
 <header>
     <nav class="nav">
         <a href="#" class="nav__name text__color__1">{{$hero->header_text}}</a>
-        <a href="{{route('blog')}}" class="nav__name text__color__1">Blog</a>
+        <a href="{{route('blog',['locale' => $locale])}}" class="nav__name text__color__1">Blog</a>
         <div class="socials">
             <a href="https://github.com/CONSTANTlNE" target="_blank">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24">
@@ -82,117 +86,35 @@
         <a href="#contact" class="contact__me text__color__2">CONTACT ME</a>
     </div>
     <section class="projects">
+@foreach($projects as $project)
         <div class="projects__item projects__item_1">
             <div class="projects__item__img">
-                <img src="images/multi_step.JPG" alt=""/>
+                @foreach($project->media as $img)
+                    <img src="{{$img->getUrl()}}" alt=""/>
+                @endforeach
+
                 <div class="projects__links__desktop">
-                    <a target="_blank" href="https://constantlne.github.io/multi-step-form/"
+                    <a target="_blank" href="{{$project->project_url}}"
                        class="projects__links__style">VIEW PROJECT</a>
-                    <a target="_blank" href="https://github.com/CONSTANTlNE/multi-step-form"
+                    <a target="_blank" href="{{$project->code_url}}"
                        class="projects__links__style">VIEW CODE</a>
                 </div>
             </div>
-            <h4 class="text__color__1">Multu Step Form</h4>
+            <h4 class="text__color__1">{{$project->project_name}}</h4>
             <div class="projects__item--tech">
-                <p class="text__color__2">HTML</p>
-                <p class="text__color__2">CSS</p>
-                <p class="text__color__2">Javascript</p>
-
+                @foreach($project->skillnames as $skill)
+                <p class="text__color__2">{{$skill->name}}</p>
+                @endforeach
             </div>
             <div class="projects__links__mobile">
-                <a href="https://constantlne.github.io/multi-step-form/" class="projects__links__style" target="_blank">VIEW
+                <a href="{{$project->project_url}}" class="projects__links__style" target="_blank">VIEW
                     PROJECT</a>
-                <a target="_blank" href="https://github.com/CONSTANTlNE/multi-step-form" class="projects__links__style">VIEW
+                <a target="_blank" href="{{$project->code_url}}" class="projects__links__style">VIEW
                     CODE</a>
             </div>
         </div>
-        <div class="projects__item">
-            <div class="projects__item__img">
-                <img src="images/news_homepage.JPG" alt=""/>
-                <div class="projects__links__desktop">
-                    <a target="_blank" href="https://constantlne.github.io/Frontendmentor-news-homepage/"
-                       class="projects__links__style">VIEW PROJECT</a>
-                    <a target="_blank" href="https://github.com/CONSTANTlNE/Frontendmentor-news-homepage"
-                       class="projects__links__style">VIEW CODE</a>
-                </div>
-            </div>
-            <h4 class="text__color__1">News homepage</h4>
-            <div class="projects__item--tech">
-                <p class="text__color__2">HTML</p>
-                <p class="text__color__2">CSS</p>
-            </div>
-            <div class="projects__links__mobile">
-                <a target="_blank" href="https://constantlne.github.io/Frontendmentor-news-homepage/" target="_blank"
-                   class="projects__links__style">VIEW PROJECT</a>
-                <a target="_blank" href="https://github.com/CONSTANTlNE/Frontendmentor-news-homepage"
-                   class="projects__links__style">VIEW CODE</a>
-            </div>
-        </div>
-        <div class="projects__item">
-            <div class="projects__item__img">
-                <img src="images/results_summary.jpg" alt=""/>
-                <div class="projects__links__desktop">
-                    <a href=https://constantlne.github.io/-frontendmentor-results-summary/" target="_blank"
-                       class="projects__links__style">VIEW PROJECT</a>
-                    <a href="https://github.com/CONSTANTlNE/-frontendmentor-results-summary" target="_blank"
-                       class="projects__links__style">VIEW CODE</a>
-                </div>
-            </div>
-            <h4 class="text__color__1">Results Summary</h4>
-            <div class="projects__item--tech">
-                <p class="text__color__2">HTML</p>
-                <p class="text__color__2">CSS</p>
+        @endforeach
 
-            </div>
-            <div class="projects__links__mobile">
-                <a href="" class="projects__links__style">VIEW PROJECT</a>
-                <a href="" class="projects__links__style">VIEW CODE</a>
-            </div>
-        </div>
-        <div class="projects__item">
-            <div class="projects__item__img">
-                <img src="images/multy_page.jpg" alt=""/>
-                <div class="projects__links__desktop">
-                    <a href="https://constantlne.github.io/Front_end_mentor-MultyPageWebsite/" target="_blank"
-                       class="projects__links__style">VIEW PROJECT</a>
-                    <a href="https://github.com/CONSTANTlNE/Front_end_mentor-MultyPageWebsite" target="_blank"
-                       class="projects__links__style">VIEW CODE</a>
-                </div>
-            </div>
-            <h4 class="text__color__1">Designo Multy-page Website</h4>
-            <div class="projects__item--tech">
-                <p class="text__color__2">HTML</p>
-                <p class="text__color__2">CSS</p>
-                <p class="text__color__2">Javascript</p>
-            </div>
-            <div class="projects__links__mobile">
-                <a href="https://constantlne.github.io/Front_end_mentor-MultyPageWebsite/"
-                   class="projects__links__style">VIEW PROJECT</a>
-                <a href="https://github.com/CONSTANTlNE/Front_end_mentor-MultyPageWebsite"
-                   class="projects__links__style">VIEW CODE</a>
-            </div>
-        </div>
-        <div class="projects__item">
-            <div class="projects__item__img">
-                <img src="images/Stats-PreviewCard.jpg" alt=""/>
-                <div class="projects__links__desktop">
-                    <a href="https://constantlne.github.io/stats-preview/" target="_blank"
-                       class="projects__links__style">VIEW PROJECT</a>
-                    <a href="https://github.com/CONSTANTlNE/stats-preview" target="_blank"
-                       class="projects__links__style">VIEW CODE</a>
-                </div>
-            </div>
-            <h4 class="text__color__1">Stats Preview</h4>
-            <div class="projects__item--tech">
-                <p class="text__color__2">HTML</p>
-                <p class="text__color__2">CSS</p>
-                <p class="text__color__2">Javascript</p>
-            </div>
-            <div class="projects__links__mobile">
-                <a href="" class="projects__links__style">VIEW PROJECT</a>
-                <a href="" class="projects__links__style">VIEW CODE</a>
-            </div>
-        </div>
 
     </section>
 </main>
@@ -219,7 +141,20 @@
     </form>
 
     <nav class="nav">
-        <a href="{{route('login')}}" class="nav__name text__color__1">Log In</a>
+
+        <form method="POST" action="{{ route('set-locale',['locale' => app()->getLocale()]) }}">
+            @csrf
+            @method('POST')
+            <label for="locale">Choose Locale:</label>
+            <select name="locale" id="locale">
+                @foreach ($locales as $key => $name)
+
+                    <option value="{{ $key }}" {{ app()->getLocale() === $key ? 'selected' : '' }}>{{ $name }}</option>
+                @endforeach
+            </select>
+            <button type="submit">Set Locale</button>
+        </form>
+        <a href="{{route('login',['locale' => $locale])}}" class="nav__name text__color__1">{{__('Log_In')}}</a>
         <form action="{{route('logout')}}" method="POST">
             @csrf
             <button type="submit" class="nav__name text__color__1">Log Out</button>

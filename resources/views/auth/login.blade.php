@@ -1,4 +1,6 @@
-
+{{--@php--}}
+{{--dd($locale);--}}
+{{-- @endphp--}}
 @extends('auth.layout')
 @section('login')
     <div class="row">
@@ -6,8 +8,9 @@
         <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center mx-auto">
             <div class="card mt-3 mb-3">
                 <div class="card-body">
-                    <form action="{{route('login')}}" method="post">
+                    <form action="{{route('login',['locale'=>$locale])}}" method="post">
                         @csrf
+                        @method('POST')
                     <div class="row">
                         <div class="col-md-12 mb-3">
 
@@ -94,7 +97,7 @@
                         </form>
                         <div class="col-12">
                             <div class="text-center">
-                                <p class="mb-0">Dont't have an account ? <a href="{{route('register')}}" class="text-warning">Sign Up</a></p>
+                                <p class="mb-0">Dont't have an account ? <a href="{{route('register',['locale'=>$locale])}}" class="text-warning">Sign Up</a></p>
                             </div>
                         </div>
 

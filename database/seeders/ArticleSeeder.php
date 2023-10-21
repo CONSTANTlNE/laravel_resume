@@ -20,12 +20,12 @@ class ArticleSeeder extends Seeder
         // Get an array of all user IDs
         $user_id = User::pluck('id')->toArray();
         $category_id = Category::pluck('id')->toArray();
-        $articles = 20;
+        $articles = 50;
 
         for ($i = 0; $i < $articles; $i++) {
             $article =Article::create([
                 'title' => $faker->sentence(3),
-                'body' => '<p>' . $faker->text(500) . '</p>',
+                'body' => '<p>' . $faker->realText(500) . '</p>',
                 'user_id'=>$faker->randomElement($user_id)
             ]);
 

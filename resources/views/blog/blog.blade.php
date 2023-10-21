@@ -30,7 +30,7 @@
                             >
                                 <div class="aai-post-item">
                                     <a
-                                            href="{{route('show_article',['article' => $article])}}"
+                                            href="{{route('show_article',['locale'=>$locale,'article' => $article])}}"
                                             class="aai-post-thumb-wrapper d-block"
                                             target="_blank"
                                     >
@@ -45,16 +45,11 @@
 
                                     <div class="aai-post-content">
                                         <div class="aai-post-meta d-flex flex-wrap gap-3">
-                                            <form class="d-flex align-items-center gap-2" action="{{route('blog',[$article->users])}} ">
-                                                <input type="hidden" name="user" value="{{$article->users->id}}">
-                                                <a href="#" class="d-flex align-items-center gap-2">
+                                                <a href="{{route('article_user',[$article->users->slug,'locale' => $locale])}}" class="d-flex align-items-center gap-2">
                                                     <i class="fa-regular fa-user"></i>
                                                     <button  style="all: unset;" class= "d-flex align-items-center gap-2 hover">{{$article->users->name}}</button>
                                                 </a>
                                                 <a style="cursor: pointer" class="d-flex align-items-center gap-2 hover"> </a>
-                                            </form>
-
-
                                             <form action="{{route('like')}} " method='post'>
                                                 @csrf
                                                 @method('POST')
@@ -77,7 +72,7 @@
                                             ><a href="#" class="d-flex align-items-center gap-2">
                                                 <i class="fa-regular fa-folder"></i>
                                                 @foreach($article->categories as $index =>$category)
-                                                  <a class="d-flex align-items-center gap-2 hover" href="{{route('blog',[ $category->id])}}"><span>{{$category->name}}</span></a>
+                                                  <a class="d-flex align-items-center gap-2 hover" href="{{route('show_category',['locale' => $locale,$category->slug])}}"><span>{{$category->name}}</span></a>
                                                 @endforeach
                                             </a>
                                         </div>
@@ -92,7 +87,7 @@
                                         </div>
 
                                         <a
-                                                href="{{route('show_article',['article' => $article])}}"
+                                                href="{{route('show_article',['locale' => $locale,'article' => $article])}}"
                                                 class="aai-post-readmore d-flex align-items-center gap-2"
                                         >
                                             <span>Read More</span>

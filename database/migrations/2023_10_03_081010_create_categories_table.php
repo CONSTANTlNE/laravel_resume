@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
+            $table->string('slug')->nullable();
         });
     }
 
@@ -24,5 +25,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('categories');
+
     }
 };

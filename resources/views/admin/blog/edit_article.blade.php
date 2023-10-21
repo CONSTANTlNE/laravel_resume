@@ -22,7 +22,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-12 ">
-                                <form method="post" action="{{route('update_article',['article' => $article])}}" enctype="multipart/form-data">
+                                <form method="post" action="{{route('update_article',['article'=>$article])}}" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">

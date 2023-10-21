@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <title>Admin</title>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.11.0/css/flag-icons.min.css"
+    />
     <link rel="icon" type="image/x-icon" href="{{asset('assets/bootstrap/src/assets/img/setting.png')}}"/>
     <link href="{{asset('assets/bootstrap/layouts/vertical-dark-menu/css/light/loader.css')}}" rel="stylesheet"
           type="text/css"/>
@@ -26,7 +30,7 @@
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
 
-    @if(request()->routeIs(['users', 'roles', 'my_skills','projects', 'permissions', 'article_list','profile']) )
+    @if(request()->routeIs(['users', 'roles', 'my_skills','projects', 'permissions', 'article_list','profile','deleted_articles']) )
         <!-- DataTable CSS -->
         <link rel="stylesheet" type="text/css"
               href="{{asset('assets/bootstrap/src/plugins/src/table/datatable/datatables.css')}}">
@@ -110,7 +114,7 @@
 
     @endif
 
-@if(request()->routeIs('edit_profile'))
+@if(request()->routeIs('edit_profile','create_article'))
     <!--  Edit User Profile -->
     <link rel="stylesheet" href="{{asset('assets/bootstrap/src/plugins/src/filepond/filepond.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/bootstrap/src/plugins/src/filepond/FilePondPluginImagePreview.min.css')}}">
@@ -178,6 +182,7 @@
                 @yield('projects')
                 @yield('create_article')
                 @yield('articles')
+                @yield('soft_delete')
                 @endrole
 
                 {{--                contributor--}}
@@ -201,6 +206,7 @@
 <!-- END MAIN CONTAINER -->
 
 <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+
 <script src="{{asset('assets/bootstrap/src/plugins/src/global/vendors.min.js')}}"></script>
 <script src="{{asset('assets/bootstrap/src/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/bootstrap/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
@@ -212,7 +218,7 @@
 <!-- END GLOBAL MANDATORY SCRIPTS -->
 
 
-@if(request()->routeIs(['users','article_list','profile']))
+@if(request()->routeIs(['users','article_list','profile','deleted_articles']))
     <!-- DataTable scripts -->
     <script src="{{asset('assets/bootstrap/src/plugins/src/table/datatable/datatables.js')}}"></script>
     <script>
@@ -354,11 +360,14 @@
         new TomSelect("#select-state", {
             maxItems: 10
         });
+        new TomSelect("#select-state-2", {
+            maxItems: 10
+        });
     </script>
 @endif
 
 
-@if(request()->routeIs('edit_profile'))
+@if(request()->routeIs('edit_profile','create_article'))
     <!--  Edit User Profile -->
     <script src="{{asset('assets/bootstrap/src/plugins/src/filepond/filepond.min.js')}}"></script>
     <script src="{{asset('assets/bootstrap/src/plugins/src/filepond/FilePondPluginFileValidateType.min.js')}}"></script>

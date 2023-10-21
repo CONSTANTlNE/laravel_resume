@@ -1,14 +1,9 @@
 @extends('admin.index')
-@section('articles')
+@section('soft_delete')
 {{--@php--}}
 {{--dd($articles);--}}
 {{-- @endphp--}}
     <div class="row layout-spacing" style="padding-top: 2rem">
-        <button style="width:max-content" class="btn btn-dark mb-2 me-4 " id="openModalBtn"><a href="{{route('create_article')}}" target="_blank">Create Article</a></button>
-
-        {{--===============================================--}}
-
-        {{--    +++++++++++++++++++++++++++++++++++++++--}}
 
         <div class="col-lg-12">
             <div class="statbox widget box box-shadow">
@@ -58,20 +53,15 @@
                                         </a>
 
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                            <a  class="dropdown-item" href="{{route('show_article',['locale'=>$locale,'article' => $article])}}" target="_blank">View Article</a>
-
-                                            <a class="dropdown-item"
-                                               href="{{route('edit_article',['locale'=>$locale,'article' => $article])}}" target="_blank">
-                                                Edit
-                                            </a>
-
+{{--                                            @php dd($article) @endphp--}}
+                                            <a  class="dropdown-item" href="{{route('restore_article',['locale'=>$locale,'article'=>$article])}}">Restore</a>
                                             <form id="formView_2" method="post"
-                                                  action="{{route('delete_article',[$locale,'article' => $article])}}">
+                                                  action="{{route('permanent_delete',['locale'=>$locale,'article'=>$article])}}">
                                                 @csrf
                                                 @method('post')
                                                 <a  class="dropdown-item">
                                                     <button style="all: unset;" type="button" class="dropdown-item" onclick="submitForm('formView_2')">
-                                                        Delete
+                                                        Permanent Delete
                                                     </button>
                                                 </a>
                                             </form>
