@@ -81,7 +81,7 @@
 
 {{--    </div>--}}
 {{--    <!--  END CONTENT AREA  -->--}}
-<form method="post" action="{{route('store_article',['locale'=>$locale])}}" enctype="multipart/form-data">
+<form method="post" action="{{route('store_article')}}" enctype="multipart/form-data">
     <div class="layout-px-spacing">
 
         <div class="middle-content container-xxl p-0">

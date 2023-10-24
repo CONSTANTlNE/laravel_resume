@@ -76,7 +76,7 @@
         </style>
     @endif
 
-    @if(request()->routeIs('my_skills') || request()->routeIs('skills') || request()->routeIs('projects')|| request()->routeIs('roles'))
+    @if(request()->routeIs('my_skills') || request()->routeIs('skills') || request()->routeIs('projects')|| request()->routeIs('roles') || request()->routeIs('settings'))
         <!-- skills  -->
         <link href="{{asset('assets/custom/CSS/popup_modal.css')}}" rel="stylesheet" type="text/css"/>
         <!-- skills -->
@@ -333,7 +333,7 @@
     <!--end Simple Tables -->
 @endif
 
-@if(request()->routeIs('my_skills')||request()->routeIs('skills') || request()->routeIs('projects') || request()->routeIs('roles'))
+@if(request()->routeIs('my_skills')||request()->routeIs('skills') || request()->routeIs('projects') || request()->routeIs('roles') || request()->routeIs('settings'))
     <!-- skills  -->
     <script src="{{asset('assets/custom/JS/popup_modal.js')}}"></script>
     <script src="{{asset('assets/custom/JS/update_modal.js')}}"></script>

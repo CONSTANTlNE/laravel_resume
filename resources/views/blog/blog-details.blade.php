@@ -28,7 +28,7 @@
                 >
                   <li>
                     <a
-                      href="{{route('blog',['locale'=>$locale])}}"
+                      href="{{route('blog')}}"
                       class="aai-breadcrumb-link text-decoration-underline"
                       >Home</a
                     >

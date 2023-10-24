@@ -11,6 +11,6 @@ class LocaleController extends Controller
         $lang = $request->input('locale');
         session(['locale' => $lang]);
 
-        return redirect()->route('home', ['locale' => $lang]);
+        return redirect()->back()->with('locale',$lang);
     }
 }

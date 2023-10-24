@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Language;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,15 +23,9 @@ class ComposerServiceProvider extends ServiceProvider
     {
         view()->composer(['*'], function ($view) {
 
-            $localesPath = storage_path('app/public/locales.json');
-            $localesJson = file_get_contents($localesPath); // Read the JSON file
-            $locales     = json_decode($localesJson, true); // Decode JSON into an array
-            $locale='en';
-           if(session('locale') !== null){
-               $locale=session('locale');
-           }
+            $locales     = Language::where('active', 1)->pluck('abbr')->toArray();
 
-            $view->with(compact('locales','locale' ));
+            $view->with(compact('locales'));
         });
     }
 }

@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ArticleSeeder::class);
         $this->call(ProjectSeeder::class);
         $this->call(PermissionSeeder::class);
+        $this->call(LanguageSeeder::class);
 
 
 

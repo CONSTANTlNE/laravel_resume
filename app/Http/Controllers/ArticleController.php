@@ -1,13 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
 
 
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
-use App\Models\User;
-
+use App\Traits\ArticleTrait;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +15,7 @@ use Spatie\Searchable\Search;
 
 class ArticleController extends Controller
 {
+    use ArticleTrait;
 
     private $recent_articles;
     private $categories;
@@ -76,13 +75,14 @@ class ArticleController extends Controller
         }
 
 
+        if (!empty($request->title_ge) && !empty($request->body_ge)) {
 
-        if(!empty($request->title_ge)&&!empty($request->body_ge)){
-        $slug_ge=preg_replace('/\s+/u', '-', trim($request->title_ge));
-        $article->setTranslation('slug','ge', $slug_ge);
-        $article->setTranslation('title','ge',$request->title_ge);
-        $article->setTranslation('body','ge',$request->body_ge );
-        $article->save();
+            $slug_ge = preg_replace('/\s+/u', '-', trim($request->title_ge));
+            $convert=Str::ascii($slug_ge);
+            $article->setTranslation('slug', 'ge', $convert);
+            $article->setTranslation('title', 'ge', $request->title_ge);
+            $article->setTranslation('body', 'ge', $request->body_ge);
+            $article->save();
         }
 
 
@@ -92,10 +92,10 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($locale,$slug)
+    public function show($locale, $slug)
     {
 //        dd($slug);
-        $article= Article::with('media', 'categories', 'users')->where('slug->'.$locale, $slug)->first();
+        $article = Article::with('media', 'categories', 'users')->where('slug->'.$locale, $slug)->first();
 
         return view('blog.blog-details')
             ->with('categories', $this->categories)
@@ -106,9 +106,9 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($locale,$slug)
+    public function edit($locale, $slug)
     {
-        $article= Article::with('media', 'categories', 'users')->where('slug->en', $slug)->first();
+        $article          = Article::with('media', 'categories', 'users')->where('slug->en', $slug)->first();
         $categories       = Category::all();
         $article_category = $article->categories->pluck('id')->toArray();
 
@@ -150,13 +150,14 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($locale,$slug)
+    public function destroy($locale, $slug)
     {
 //        dd($request->slug);
         if (auth()->user()->hasRole('admin')) {
-            $article= Article::where('slug->'.$locale, $slug)->firstOrFail();
+            $article = Article::where('slug->'.$locale, $slug)->firstOrFail();
 //            dd($article);
             $article->delete();
+
             return redirect()->back();
         } else {
             abort(403);
@@ -167,19 +168,14 @@ class ArticleController extends Controller
     public function categories($locale, $category)
     {
 
-        $articles = Article::with('media', 'categories', 'users')
-            ->whereHas('categories', function ($query) use ($category) {
-                $query->where('categories.slug', $category);
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+        $articles = $this->getArticles($category);
 
         return view('blog.blog', compact('articles'))
             ->with('recent_articles', $this->recent_articles)
             ->with('categories', $this->categories);
     }
 
-    public function users($locale,$slug)
+    public function users($locale, $slug)
     {
 //        dd($slug);
 
@@ -198,9 +194,11 @@ class ArticleController extends Controller
 
     public function search(Request $request)
     {
-        $query    = $request->input('query');
+//        dd($request);
+        $query = $request->input('query');
+//        dd($query);
         $results  = (new Search())
-            ->registerModel(Article::class, ['title', 'body'])
+            ->registerModel(Article::class, ['title->'.app()->getLocale(), 'body->'.app()->getLocale()])
             ->search($query);
         $modelIds = $results->map(function ($searchResult) {
             return $searchResult->searchable->id;
@@ -212,7 +210,7 @@ class ArticleController extends Controller
             ->paginate(5);
 
         return view('blog.blog', compact('articles'))
-            ->with('categores', $this->categories)
+            ->with('categories', $this->categories)
             ->with('recent_articles', $this->recent_articles);
     }
 
@@ -230,20 +228,19 @@ class ArticleController extends Controller
     }
 
 
-    public function restoreArticle( $locale,$slug )
+    public function restoreArticle($locale, $slug)
     {
-//        dd($article);
-
-        $article = Article::onlyTrashed()->where('slug->en',$slug);
+//        dd($locale);
+        $article = Article::onlyTrashed()->where('slug->'.$locale, $slug);
         $article->restore();
 
         return redirect()->back();
     }
 
-    public function deleteArticle($locale,$slug )
+    public function deleteArticle($locale, $slug)
     {
 
-        $article = Article::onlyTrashed()->where('slug->en',$slug);
+        $article = Article::onlyTrashed()->where('slug->en', $slug);
         $article->forceDelete();
 
         return redirect()->back();

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+
+use App\Traits\EscapeUniCodeJson;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -14,7 +16,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Article extends Model implements HasMedia, Searchable
 {
-    use interactsWithMedia, Likeable, softDeletes,HasTranslations;
+    use interactsWithMedia, Likeable, softDeletes, HasTranslations, EscapeUniCodeJson;
 
     protected $guarded = [];
     protected $defaultLocale = 'en';
@@ -46,6 +48,11 @@ class Article extends Model implements HasMedia, Searchable
 
         );
     }
+
+
+
+
+
 
 //=================================== SLUG  =====================
 

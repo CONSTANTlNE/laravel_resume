@@ -54,9 +54,9 @@
 
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
 {{--                                            @php dd($article) @endphp--}}
-                                            <a  class="dropdown-item" href="{{route('restore_article',['locale'=>$locale,'article'=>$article])}}">Restore</a>
+                                            <a  class="dropdown-item" href="{{route('restore_article',['article'=>$article])}}">Restore</a>
                                             <form id="formView_2" method="post"
-                                                  action="{{route('permanent_delete',['locale'=>$locale,'article'=>$article])}}">
+                                                  action="{{route('permanent_delete',['article'=>$article])}}">
                                                 @csrf
                                                 @method('post')
                                                 <a  class="dropdown-item">

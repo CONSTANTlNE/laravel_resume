@@ -58,15 +58,15 @@
                                         </a>
 
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                            <a  class="dropdown-item" href="{{route('show_article',['locale'=>$locale,'article' => $article])}}" target="_blank">View Article</a>
+                                            <a  class="dropdown-item" href="{{route('show_article',['article' => $article])}}" target="_blank">View Article</a>
 
                                             <a class="dropdown-item"
-                                               href="{{route('edit_article',['locale'=>$locale,'article' => $article])}}" target="_blank">
+                                               href="{{route('edit_article',['article' => $article])}}" target="_blank">
                                                 Edit
                                             </a>
 
                                             <form id="formView_2" method="post"
-                                                  action="{{route('delete_article',[$locale,'article' => $article])}}">
+                                                  action="{{route('delete_article',['article' => $article])}}">
                                                 @csrf
                                                 @method('post')
                                                 <a  class="dropdown-item">

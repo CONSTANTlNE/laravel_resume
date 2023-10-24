@@ -1,6 +1,6 @@
-{{--@php--}}
-{{--dd($locale);--}}
-{{-- @endphp--}}
+@php
+//dd(session('locale'));
+ @endphp
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +22,7 @@
 <header>
     <nav class="nav">
         <a href="#" class="nav__name text__color__1">{{$hero->header_text}}</a>
-        <a href="{{route('blog',['locale' => $locale])}}" class="nav__name text__color__1">Blog</a>
+        <a href="{{route('blog')}}" class="nav__name text__color__1">Blog</a>
         <div class="socials">
             <a href="https://github.com/CONSTANTlNE" target="_blank">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24">
@@ -142,19 +142,18 @@
 
     <nav class="nav">
 
-        <form method="POST" action="{{ route('set-locale',['locale' => app()->getLocale()]) }}">
+        <form method="POST" action="{{ route('set-locale') }}">
             @csrf
             @method('POST')
             <label for="locale">Choose Locale:</label>
             <select name="locale" id="locale">
                 @foreach ($locales as $key => $name)
-
-                    <option value="{{ $key }}" {{ app()->getLocale() === $key ? 'selected' : '' }}>{{ $name }}</option>
+                    <option value="{{ $name }}" {{ app()->getLocale() === $name ? 'selected' : '' }}>{{ $name }}</option>
                 @endforeach
             </select>
             <button type="submit">Set Locale</button>
         </form>
-        <a href="{{route('login',['locale' => $locale])}}" class="nav__name text__color__1">{{__('Log_In')}}</a>
+        <a href="{{route('login')}}" class="nav__name text__color__1">{{__('Log_In')}}</a>
         <form action="{{route('logout')}}" method="POST">
             @csrf
             <button type="submit" class="nav__name text__color__1">Log Out</button>
