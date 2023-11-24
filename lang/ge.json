@@ -1,5 +1,1 @@
-{
-  "Log_In": "ავტორიზაცია",
-  "Email": "ელ ფოსტა",
-  "LOG_OUT": "გასვლა"
-}
+{"LOG_IN":"ავტორიზაცია","EMAIL":"ელ ფოსტა","LOG_OUT":"გასვლა","CONTACT_ME":"დამიკავშირდით","VIEW_PROJECT":"პროექტის ნახვა","VIEW_CODE":"GITHUB","MESSAGE":"მოხარული ვიქნები თუ შევძლებ თქვენს დახმარებას, მომწერეთ და დაგიკავშირდებით უმოკლეს დროში ","SEND_MESSAGE":"გაგზავნა","placeholder_name":"სახელი","placeholder_email":"მეილი","placeholder_text":"ტექსტი","CONTACT":"კავშირი"}

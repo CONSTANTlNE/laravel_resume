@@ -1,4 +1,8 @@
 @extends('blog.layout')
+{{--                            @php--}}
+{{--                            dd(session('locale'));--}}
+{{--                            @endphp--}}
+@section('title', 'Blog')
 
 @section('blog')
 
@@ -20,18 +24,14 @@
                 <div class="row">
                     <div class="col-lg-7 col-xl-8">
                         @foreach($articles as $index=>$article)
-{{--                            @php--}}
-{{--                            dd($article);--}}
-{{--                            @endphp--}}
+
                             <article
                                     class="aai-post-wrapper"
                                     data-aos="fade-up"
                                     data-aos-delay="50"
                             >
                                 <div class="aai-post-item">
-{{--                                    @php--}}
-{{--                                    dd($article);--}}
-{{--                                    @endphp--}}
+
                                     <a
                                             href="{{route('show_article',['article' => $article])}}"
                                             class="aai-post-thumb-wrapper d-block"

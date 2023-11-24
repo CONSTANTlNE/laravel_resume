@@ -1,4 +1,1 @@
-{
-  "Log_In": "Log In",
-  "Email": "Email"
-}
+{"LOG_IN":"Log In","EMAIL":"Email","LOG_OUT":"Log Out","CONTACT_ME":"CONTACT ME","VIEW_PROJECT":"VIEW PROJECT","VIEW_CODE":"GITHUB","MESSAGE":"I would love to hear about your project and how I could help. Please fill in the form, and I’ll get back to you as soon as possible.","SEND_MESSAGE":"SEND MESSAGE","placeholder_name":"NAME","placeholder_email":"EMAIL","placeholder_text":"TEXT","CONTACT":"CONTACT"}

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>Admin</title>
+    <title>@yield('title')</title>
     <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.11.0/css/flag-icons.min.css"
@@ -30,7 +30,7 @@
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
 
-    @if(request()->routeIs(['users', 'roles', 'my_skills','projects', 'permissions', 'article_list','profile','deleted_articles']) )
+    @if(request()->routeIs(['static_lang','users', 'roles', 'my_skills','projects', 'permissions', 'article_list','profile','deleted_articles']) )
         <!-- DataTable CSS -->
         <link rel="stylesheet" type="text/css"
               href="{{asset('assets/bootstrap/src/plugins/src/table/datatable/datatables.css')}}">
@@ -44,11 +44,6 @@
               href="{{asset('assets/bootstrap/src/plugins/css/dark/table/datatable/dt-global_style.css')}}">
         <link rel="stylesheet" type="text/css"
               href="{{asset('assets/bootstrap/src/plugins/css/dark/table/datatable/custom_dt_custom.css')}}">
-
-        <link href="{{asset('assets/bootstrap/layouts/vertical-dark-menu/css/dark/structure-mod.css')}}"
-              rel="stylesheet" type="text/css"/>
-        <link href="{{asset('assets/bootstrap/layouts/vertical-dark-menu/css/light/structure-mod.css')}}"
-              rel="stylesheet" type="text/css"/>
         <!-- DataTable CSS -->
 
         <style>
@@ -114,32 +109,66 @@
 
     @endif
 
-@if(request()->routeIs('edit_profile','create_article'))
-    <!--  Edit User Profile -->
-    <link rel="stylesheet" href="{{asset('assets/bootstrap/src/plugins/src/filepond/filepond.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/bootstrap/src/plugins/src/filepond/FilePondPluginImagePreview.min.css')}}">
-    <link href="{{asset('assets/bootstrap/src/plugins/src/notification/snackbar/snackbar.min.css')}}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="{{asset('assets/bootstrap/src/plugins/src/sweetalerts2/sweetalerts2.css')}}">
-    <link href="{{asset('assets/bootstrap/src/plugins/css/light/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/bootstrap/src/assets/css/light/components/tabs.css')}}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/bootstrap/src/assets/css/light/elements/alert.css')}}">
-    <link href="{{asset('assets/bootstrap/src/plugins/css/light/sweetalerts2/custom-sweetalert.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/bootstrap/src/plugins/css/light/notification/snackbar/custom-snackbar.css')}}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/bootstrap/src/assets/css/light/forms/switches.css')}}">
-    <link href="{{asset('assets/bootstrap/src/assets/css/light/components/list-group.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('assets/bootstrap/src/assets/css/light/users/account-setting.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/bootstrap/src/plugins/css/dark/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/bootstrap/src/assets/css/dark/components/tabs.css')}}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/bootstrap/src/assets/css/dark/elements/alert.css')}}">
-    <link href="{{asset('assets/bootstrap/src/plugins/css/dark/sweetalerts2/custom-sweetalert.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/bootstrap/src/plugins/css/dark/notification/snackbar/custom-snackbar.css')}}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/bootstrap/src/assets/css/dark/forms/switches.css')}}">
-    <link href="{{asset('assets/bootstrap/src/assets/css/dark/components/list-group.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('assets/bootstrap/src/assets/css/dark/users/account-setting.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/bootstrap/layouts/vertical-dark-menu/css/dark/structure-mod.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/bootstrap/layouts/vertical-dark-menu/css/light/structure-mod.css')}}" rel="stylesheet" type="text/css" />
-    <!--  END CUSTOM STYLE FILE  -->
+    @if(request()->routeIs('edit_profile','create_article'))
+        <!--  Edit User Profile -->
+        <link rel="stylesheet" href="{{asset('assets/bootstrap/src/plugins/src/filepond/filepond.min.css')}}">
+        <link rel="stylesheet"
+              href="{{asset('assets/bootstrap/src/plugins/src/filepond/FilePondPluginImagePreview.min.css')}}">
+        <link href="{{asset('assets/bootstrap/src/plugins/src/notification/snackbar/snackbar.min.css')}}"
+              rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="{{asset('assets/bootstrap/src/plugins/src/sweetalerts2/sweetalerts2.css')}}">
+        <link href="{{asset('assets/bootstrap/src/plugins/css/light/filepond/custom-filepond.css')}}" rel="stylesheet"
+              type="text/css"/>
+        <link href="{{asset('assets/bootstrap/src/assets/css/light/components/tabs.css')}}" rel="stylesheet"
+              type="text/css">
+        <link rel="stylesheet" type="text/css"
+              href="{{asset('assets/bootstrap/src/assets/css/light/elements/alert.css')}}">
+        <link href="{{asset('assets/bootstrap/src/plugins/css/light/sweetalerts2/custom-sweetalert.css')}}"
+              rel="stylesheet" type="text/css"/>
+        <link href="{{asset('assets/bootstrap/src/plugins/css/light/notification/snackbar/custom-snackbar.css')}}"
+              rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css"
+              href="{{asset('assets/bootstrap/src/assets/css/light/forms/switches.css')}}">
+        <link href="{{asset('assets/bootstrap/src/assets/css/light/components/list-group.css')}}" rel="stylesheet"
+              type="text/css">
+        <link href="{{asset('assets/bootstrap/src/assets/css/light/users/account-setting.css')}}" rel="stylesheet"
+              type="text/css"/>
+        <link href="{{asset('assets/bootstrap/src/plugins/css/dark/filepond/custom-filepond.css')}}" rel="stylesheet"
+              type="text/css"/>
+        <link href="{{asset('assets/bootstrap/src/assets/css/dark/components/tabs.css')}}" rel="stylesheet"
+              type="text/css">
+        <link rel="stylesheet" type="text/css"
+              href="{{asset('assets/bootstrap/src/assets/css/dark/elements/alert.css')}}">
+        <link href="{{asset('assets/bootstrap/src/plugins/css/dark/sweetalerts2/custom-sweetalert.css')}}"
+              rel="stylesheet" type="text/css"/>
+        <link href="{{asset('assets/bootstrap/src/plugins/css/dark/notification/snackbar/custom-snackbar.css')}}"
+              rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css"
+              href="{{asset('assets/bootstrap/src/assets/css/dark/forms/switches.css')}}">
+        <link href="{{asset('assets/bootstrap/src/assets/css/dark/components/list-group.css')}}" rel="stylesheet"
+              type="text/css">
+        <link href="{{asset('assets/bootstrap/src/assets/css/dark/users/account-setting.css')}}" rel="stylesheet"
+              type="text/css"/>
+        <link href="{{asset('assets/bootstrap/layouts/vertical-dark-menu/css/dark/structure-mod.css')}}"
+              rel="stylesheet" type="text/css"/>
+        <link href="{{asset('assets/bootstrap/layouts/vertical-dark-menu/css/light/structure-mod.css')}}"
+              rel="stylesheet" type="text/css"/>
+        <!--  END CUSTOM STYLE FILE  -->
     @endif
+
+    <!-- MODAL -->
+    <link href="{{asset('assets/bootstrap/src/plugins/src/animate/animate.css')}}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{{asset('assets/bootstrap/src/plugins/src/filepond/filepond.min.css')}}">
+    <link rel="stylesheet"
+          href="{{asset('assets/bootstrap/')}}../src/plugins/src/filepond/FilePondPluginImagePreview.min.css">
+    <link href="{{asset('assets/bootstrap/src/plugins/css/light/filepond/custom-filepond.css')}}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{{asset('assets/bootstrap/src/plugins/css/dark/filepond/custom-filepond.css')}}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{{asset('assets/bootstrap/src/assets/css/dark/components/modal.css')}}" rel="stylesheet"
+          type="text/css"/>
+
+    <!-- MODAL-->
 </head>
 <body class="alt-menu layout-boxed">
 
@@ -168,7 +197,6 @@
     <!--  END SIDEBAR  -->
 
     <!--  BEGIN CONTENT AREA  -->
-
     <div id="content" class="main-content">
         <div class="layout-px-spacing">
             <div class="middle-content container-xxl p-0">
@@ -183,6 +211,8 @@
                 @yield('create_article')
                 @yield('articles')
                 @yield('soft_delete')
+                @yield('site_settings')
+                @yield('static_data_lang')
                 @endrole
 
                 {{--                contributor--}}
@@ -218,7 +248,7 @@
 <!-- END GLOBAL MANDATORY SCRIPTS -->
 
 
-@if(request()->routeIs(['users','article_list','profile','deleted_articles']))
+@if(request()->routeIs(['users','article_list','profile','deleted_articles','static_lang']))
     <!-- DataTable scripts -->
     <script src="{{asset('assets/bootstrap/src/plugins/src/table/datatable/datatables.js')}}"></script>
     <script>
@@ -383,5 +413,85 @@
     <!--  Edit User Profile -->
 @endif
 
+{{--MODAL--}}
+<script>
+
+    function addVideoInModal(btnSelector, videoSource, modalSelector, iframeHeight, iframeWidth, iframeContainer) {
+        var myModal = new bootstrap.Modal(document.getElementById(modalSelector), {
+            keyboard: false
+        })
+        document.querySelector(btnSelector).addEventListener('click', function () {
+            var src = videoSource;
+            myModal.show('show');
+            var ifrm = document.createElement("iframe");
+            ifrm.setAttribute("src", src);
+            ifrm.setAttribute('width', iframeWidth);
+            ifrm.setAttribute('height', iframeHeight);
+            ifrm.style.border = "0";
+            ifrm.setAttribute("allow", "encrypted-media");
+            document.querySelector(iframeContainer).appendChild(ifrm);
+        })
+    }
+
+    addVideoInModal('#yt-video-link', 'https://www.youtube.com/embed/YE7VzlLtp-4', 'videoMedia1', '315', '560', '.yt-container')
+
+    addVideoInModal('#vimeo-video-link', 'https://player.vimeo.com/video/1084537', 'videoMedia2', '315', '560', '.vimeo-container')
+
+
+    /**
+     * ==================
+     * Single File Upload
+     * ==================
+     */
+
+    // We register the plugins required to do
+    // image previews, cropping, resizing, etc.
+    FilePond.registerPlugin(
+        FilePondPluginFileValidateType,
+        FilePondPluginImageExifOrientation,
+        FilePondPluginImagePreview,
+        FilePondPluginImageCrop,
+        FilePondPluginImageResize,
+        FilePondPluginImageTransform,
+        //   FilePondPluginImageEdit
+    );
+
+    // Select the file input and use
+    // create() to turn it into a pond
+    var modalImage = FilePond.create(
+        document.querySelector('.filepond'),
+        {
+            // labelIdle: `<span class="no-image-placeholder"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span> <p class="drag-para">Drag & Drop your picture or <span class="filepond--label-action" tabindex="0">Browse</span></p>`,
+            imagePreviewHeight: 170,
+            imageCropAspectRatio: '1:1',
+            imageResizeTargetWidth: 200,
+            imageResizeTargetHeight: 200,
+            stylePanelLayout: 'compact circle',
+            styleLoadIndicatorPosition: 'center bottom',
+            styleProgressIndicatorPosition: 'right bottom',
+            styleButtonRemoveItemPosition: 'left bottom',
+            styleButtonProcessItemPosition: 'right bottom',
+        }
+    );
+
+    const myModalEl = document.getElementById('profileModal')
+    myModalEl.addEventListener('shown.bs.modal', event => {
+        modalImage.addFiles('../src/assets/img/drag-1.jpeg');
+    })
+
+</script>
+
+//Language Selection
+<script>
+    function submitForm(locale) {
+        const form = document.getElementById("language-form");
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "locale";
+        input.value = locale;
+        form.appendChild(input);
+        form.submit();
+    }
+</script>
 </body>
 </html>

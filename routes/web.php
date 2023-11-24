@@ -28,11 +28,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', function () {
-    $slug = Str::slug('ქართული', '_'); // Generate a slug from the string
-
-    return view('test')->with('slug', $slug); // Pass the slug variable to the 'test' view
-});
 
 
 // Choose Language
@@ -66,12 +61,18 @@ Route::middleware(['auth', 'role:admin|contributor', 'localization'])
         Route::get('/index', [AdminController::class, 'index'])->name('admin');
         Route::get('/users', [AdminController::class, 'users'])->name('users');
         Route::get('/articles', [AdminController::class, 'articles'])->name('article_list');
-        Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
+        Route::get('/site/settings', [AdminController::class, 'settings'])->name('settings');
+
 
         //languages
+        Route::get('/staticlang', [AdminController::class, 'staticLang'])->name('static_lang');
+        Route::get('/staticlang/edit', [AdminController::class, 'editStaticLang'])->name('edit_static_lang');
+        Route::put('/staticlang/update', [AdminController::class, 'updateStaticLang'])->name('update_static_lang');
+        Route::post('/staticlang/delete', [AdminController::class, 'deleteStaticLang'])->name('delete_static_lang');
         Route::post('/lang/delete', [AdminController::class, 'langDestroy'])->name('lang_delete');
         Route::post('/lang/status', [AdminController::class, 'status'])->name('status_update');
         Route::put('/lang/edit', [AdminController::class, 'langUpdate'])->name('lang_edit');
+
 
         //Blog Roles
         Route::get('/roles', [RoleController::class, 'index'])->name('roles');
@@ -109,7 +110,9 @@ Route::middleware(['auth', 'role:admin|contributor', 'localization'])
             });
 
         //Articles
-        Route::controller(ArticleController::class)->group(function () {
+        Route::prefix('article')
+            ->controller(ArticleController::class)
+            ->group(function () {
             Route::get('/restore/{article}', 'restoreArticle')->name('restore_article');
             Route::post('/permanent_delete/{article}', 'deleteArticle')->name('permanent_delete');
             Route::get('/edit/{article}', 'edit')->name('edit_article');
@@ -119,13 +122,11 @@ Route::middleware(['auth', 'role:admin|contributor', 'localization'])
             Route::post('/delete/{article}', 'destroy')->name('delete_article');
             Route::get('/deleted', 'deleted')->name('deleted_articles');
         });
-
-
     });
 
 
 // User Profile
-Route::middleware(['auth'])
+Route::middleware(['auth','localization'])
     ->prefix('profile')
     ->controller(UserController::class)
     ->group(function () {
@@ -137,7 +138,7 @@ Route::middleware(['auth'])
 
 
 // Likes & Follow (user must be authenticated to give like or follow)
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'localization'])->group(function () {
     Route::post('/article/like', [LikeController::class, 'like'])->name('like');
     Route::post('/user/follow', [FollowController::class, 'follow'])->name('follow');
 });

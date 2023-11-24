@@ -50,6 +50,12 @@ class Article extends Model implements HasMedia, Searchable
     }
 
 
+    public function metas()
+    {
+        return $this->morphMany(Meta::class, 'metaable');
+    }
+
+
 
 
 

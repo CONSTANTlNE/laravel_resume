@@ -1,6 +1,7 @@
 @extends('admin.index')
 
 @section('roles')
+    <div class="row layout-spacing mt-5">
     <div id="tableHover" class="col-lg-12 col-12 layout-spacing" >
 
         <!-- End New Skill  -->
@@ -148,5 +149,6 @@
 
             </div>
         </div>
+    </div>
     </div>
 @endsection

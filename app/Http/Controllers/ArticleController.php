@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
 
 
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
+use App\Services\ArticlesService;
 use App\Traits\ArticleTrait;
 
 use Illuminate\Http\Request;
@@ -19,9 +21,11 @@ class ArticleController extends Controller
 
     private $recent_articles;
     private $categories;
+    protected $articlesService;
 
-    public function __construct()
+    public function __construct(ArticlesService $articlesService)
     {
+        $this->articlesService = $articlesService;
         $this->recent_articles = Article::orderBy('created_at', 'desc')->take(5)->get();
         $this->categories      = Category::withCount('articles')->get();
     }
@@ -56,35 +60,7 @@ class ArticleController extends Controller
     public function store(ArticleRequest $request)
     {
 
-//        dd($request->title_ge);
-
-        // Create the article
-        $articleData = [
-            'title' => $request->title,
-            'body'  => $request->body,
-        ];
-
-        // Create and save the article, and associate it with the authenticated user
-        $user    = Auth::user();
-        $article = $user->articles()->create($articleData);
-        // Attach the selected categories to the article
-        $article->categories()->attach($request->input('categories'));
-        // Handle the article photo upload
-        if ($request->hasFile('article_photo')) {
-            $article->addMediaFromRequest('article_photo')->toMediaCollection('article_image');
-        }
-
-
-        if (!empty($request->title_ge) && !empty($request->body_ge)) {
-
-            $slug_ge = preg_replace('/\s+/u', '-', trim($request->title_ge));
-            $convert=Str::ascii($slug_ge);
-            $article->setTranslation('slug', 'ge', $convert);
-            $article->setTranslation('title', 'ge', $request->title_ge);
-            $article->setTranslation('body', 'ge', $request->body_ge);
-            $article->save();
-        }
-
+        $this->articlesService->storeArticle($request);
 
         return redirect()->back();
     }
@@ -94,13 +70,15 @@ class ArticleController extends Controller
      */
     public function show($locale, $slug)
     {
-//        dd($slug);
+
         $article = Article::with('media', 'categories', 'users')->where('slug->'.$locale, $slug)->first();
+        $metas   = $article->metas;
 
         return view('blog.blog-details')
             ->with('categories', $this->categories)
             ->with('recent_articles', $this->recent_articles)
-            ->with('article', $article);
+            ->with('article', $article)
+            ->with('metas', $metas);
     }
 
     /**
@@ -121,28 +99,8 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, Article $article)
     {
-        // Create the article
-        $articleData = [
-            'title' => $request->title,
-            'body'  => $request->body,
-        ];
 
-        $article->update($articleData);
-
-
-        // Detach old categories first
-        $article->categories()->detach();
-        // Attach the selected categories to the article
-        $article->categories()->attach($request->input('categories'));
-
-        // Handle the article photo upload
-        $media = $article->getMedia('article_image')->first();
-        if ($request->hasFile('article_photo')) {
-            if (isset($media)) {
-                $media->delete();
-            }
-            $article->addMediaFromRequest('article_photo')->toMediaCollection('article_image');
-        }
+        $this->articlesService->updateArticle($request, $article);
 
         return redirect()->back();
     }

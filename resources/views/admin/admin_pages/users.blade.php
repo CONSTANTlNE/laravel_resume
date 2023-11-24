@@ -1,8 +1,6 @@
 @extends('admin.index')
 @section('users')
 
-
-
     <div class="seperator-header layout-top-spacing">
         <h4 class="">Users</h4>
     </div>

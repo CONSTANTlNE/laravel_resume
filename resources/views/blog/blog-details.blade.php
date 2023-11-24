@@ -1,7 +1,13 @@
 @extends('blog.layout')
-{{--@php--}}
-{{--dd($article)--}}
-{{-- @endphp--}}
+
+@section('metas')
+  @foreach($metas as $meta)
+    <title>{{$meta->meta_title}}</title>
+    <meta name="description" content="{{$meta->meta_description}}">
+    <meta name="keywords" content="{{$meta->meta_keywords}}">
+  @endforeach
+@endsection
+
 @section('show_article')
 
     <!-- Menu Start -->

@@ -60,4 +60,10 @@ class Category extends Model
     {
         return 'slug';
     }
+
+
+    public function metas()
+    {
+        return $this->morphMany(Meta::class, 'metaable');
+    }
 }

@@ -15,6 +15,7 @@
                         </li>
                     @endforeach
                 </ul>
+
                 <div class="d-flex align-items-center gap-4 mt-4">
                     <div
                             class="align-items-center aai-signup-in-links d-flex d-lg-none"
@@ -38,15 +39,47 @@
                         @endauth
                         @guest
                             <a href="{{route('login')}}">Login</a>
-                        <a href="{{route('register')}}" class="aai-gradient-outline-btn"
-                        >Signup
-                        </a>
-                            @endguest
+                            <a href="{{route('register')}}" class="aai-gradient-outline-btn"
+                            >Signup
+                            </a>
+                        @endguest
                     </div>
                 </div>
+
             </div>
+
+
+
+                <ul style="margin-right: 25px;">
+                    <li class="nav-item dropdown language-dropdown">
+                        <form id="language-form" method="POST" action="{{ route('set-locale') }}">
+                            @csrf
+                            @method('POST')
+                            <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="language-dropdown"
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if(App::getLocale()=='en')
+                                    <span class="fi fi-gb"></span>
+                                @else
+                                    <span class="fi fi-ge"></span>
+                                @endif
+                            </a>
+                            <section class="dropdown-menu position-absolute" aria-labelledby="language-dropdown">
+                                <a class="dropdown-item d-flex gap-1" href="javascript:void(0);"
+                                   onclick="submitForm('ge')">
+                                    <span class="fi fi-ge "></span>ქართული
+                                </a>
+                                <a class="dropdown-item d-flex gap-1" href="javascript:void(0);"
+                                   onclick="submitForm('en')">
+                                    <span class="fi fi-gb"></span>English
+                                </a>
+                            </section>
+                        </form>
+                    </li>
+                </ul>
+
             {{--          ==============--}}
             <div class="navbar-right d-flex align-items-center gap-4">
+
                 <div
                         class="align-items-center aai-signup-in-links d-none d-lg-flex"
                 >

@@ -1,5 +1,5 @@
 @php
-//dd(session('locale'));
+//dd(session('locale'))
  @endphp
 
 <!DOCTYPE html>
@@ -22,7 +22,7 @@
 <header>
     <nav class="nav">
         <a href="#" class="nav__name text__color__1">{{$hero->header_text}}</a>
-        <a href="{{route('blog')}}" class="nav__name text__color__1">Blog</a>
+        <a href="{{route('blog')}}" class="nav__name text__color__1">{{__('BLOG')}}</a>
         <div class="socials">
             <a href="https://github.com/CONSTANTlNE" target="_blank">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24">
@@ -70,7 +70,7 @@
     <p class="about__text text__color__2 mobile__view">
         {{$hero->text}}
     </p>
-    <a href="mailto:{{ $hero->email}}" class="contact__me text__color__2">CONTACT ME</a>
+    <a href="mailto:{{ $hero->email}}" class="contact__me text__color__2">{{__('CONTACT_ME')}}</a>
     <section class="skills">
         @foreach($skills as $skill)
             <div class="skills__name">
@@ -83,7 +83,7 @@
     </section>
     <div class="projects__heading">
         <h2 class="text__color__1">Projects</h2>
-        <a href="#contact" class="contact__me text__color__2">CONTACT ME</a>
+        <a href="#contact" class="contact__me text__color__2">{{__('CONTACT_ME')}}</a>
     </div>
     <section class="projects">
 @foreach($projects as $project)
@@ -97,7 +97,7 @@
                     <a target="_blank" href="{{$project->project_url}}"
                        class="projects__links__style">VIEW PROJECT</a>
                     <a target="_blank" href="{{$project->code_url}}"
-                       class="projects__links__style">VIEW CODE</a>
+                       class="projects__links__style">GITHUB</a>
                 </div>
             </div>
             <h4 class="text__color__1">{{$project->project_name}}</h4>
@@ -107,10 +107,8 @@
                 @endforeach
             </div>
             <div class="projects__links__mobile">
-                <a href="{{$project->project_url}}" class="projects__links__style" target="_blank">VIEW
-                    PROJECT</a>
-                <a target="_blank" href="{{$project->code_url}}" class="projects__links__style">VIEW
-                    CODE</a>
+                <a href="{{$project->project_url}}" class="projects__links__style" target="_blank">{{__('VIEW_PROJECT')}}</a>
+                <a target="_blank" href="{{$project->code_url}}" class="projects__links__style">{{__('VIEW_CODE')}}</a>
             </div>
         </div>
         @endforeach
@@ -124,18 +122,17 @@
             method="POST"
     >
         <div class="footer_text mobile__view">
-            <h2 class="text__color__1">Contact</h2>
+            <h2 class="text__color__1">{{__('CONTACT')}}</h2>
             <p class="text__color__2">
-                I would love to hear about your project and how I could help. Please
-                fill in the form, and I’ll get back to you as soon as possible.
+                {{__('MESSAGE')}}
             </p>
         </div>
         <div class="form_fields mobile__view" id="contact">
-            <input type="text" placeholder="NAME" name="sender"/>
-            <input type="email" placeholder="EMAIL" name="sender_email"/>
-            <textarea id="" placeholder="MESSAGE" name="sender_text"></textarea>
+            <input type="text" placeholder="{{__('placeholder_name')}}" name="sender"/>
+            <input type="email" placeholder="{{__('placeholder_email')}}" name="sender_email"/>
+            <textarea id="" placeholder="{{__('placeholder_text')}}" name="sender_text"></textarea>
             <button type="submit" class="contact__me text__color__2" id="submit">
-                SEND MESSAGE
+                {{__('SEND_MESSAGE')}}
             </button>
         </div>
     </form>
@@ -153,7 +150,7 @@
             </select>
             <button type="submit">Set Locale</button>
         </form>
-        <a href="{{route('login')}}" class="nav__name text__color__1">{{__('Log_In')}}</a>
+        <a href="{{route('login')}}" class="nav__name text__color__1">{{__('LOG_IN')}}</a>
         <form action="{{route('logout')}}" method="POST">
             @csrf
             <button type="submit" class="nav__name text__color__1">Log Out</button>

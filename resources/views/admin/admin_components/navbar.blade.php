@@ -34,36 +34,26 @@
         </div>
 
         <ul class="navbar-item flex-row ms-lg-auto ms-0">
-            <li>
-            <form class="d-flex justify-content-center" role="search" method="POST" action="{{ route('set-locale') }}">
-                @csrf
-                @method('POST')
-                <label for="locale">Choose Locale:</label>
-                <select name="locale" id="locale">
-                    @foreach ($locales as $key => $name)
-                        <option value="{{ $key }}" {{ app()->getLocale() === $key ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </select>
-                <button type="submit">Set Locale</button>
-            </form>
-               </li>
             <li class="nav-item dropdown language-dropdown">
-
-                <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="language-dropdown"
-                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    @if(App::getLocale()=='en')
-                    <span class="fi fi-gb"></span>English
-                    @else
-                        <span class="fi fi-ge"></span>ქართული
-                    @endif
-                </a>
-                <div class="dropdown-menu position-absolute" aria-labelledby="language-dropdown">
-
-                    <a class="dropdown-item d-flex" href="javascript:void(0);">
-                        <span class="fi fi-ge"></span>ქართული</a>
-                    <a class="dropdown-item d-flex" href="javascript:void(0);">
-                        <span class="fi fi-gb"></span>English</a>
-                </div>
+                <form id="language-form" method="POST" action="{{ route('set-locale') }}">
+                    @csrf
+                    @method('POST')
+                    <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="language-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @if(App::getLocale()=='en')
+                            <span class="fi fi-gb"></span>
+                        @else
+                            <span class="fi fi-ge"></span>
+                        @endif
+                    </a>
+                    <div class="dropdown-menu position-absolute" aria-labelledby="language-dropdown">
+                        <a class="dropdown-item d-flex gap-1" href="javascript:void(0);" onclick="submitForm('ge')">
+                            <span class="fi fi-ge "></span>ქართული
+                        </a>
+                        <a class="dropdown-item d-flex gap-1" href="javascript:void(0);" onclick="submitForm('en')">
+                            <span class="fi fi-gb"></span>English
+                        </a>
+                    </div>
+                </form>
             </li>
 
             <li class="nav-item theme-toggle-item">

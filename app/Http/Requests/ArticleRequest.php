@@ -26,6 +26,9 @@ class ArticleRequest extends FormRequest
             'body'  => ['required', 'string', 'max:10000'],
             'article_photo' => ['required', 'image', 'max:2048'],
             'categories' => ['required', 'array', 'exists:categories,id'],
+            'meta_title' => ['required', 'string', 'max:255'],
+            'meta_keywords' => ['required', 'string', 'max:255'],
+            'meta_description' => ['required', 'string', 'max:255'],
             ];
     }
 }
